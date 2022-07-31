@@ -3,37 +3,27 @@ using namespace std;
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-int n,mod=998244353;
-int fac[200005];
-int qpow(int a,int b)
+const int INF=4557430888798830399;
+int n,m,k;
+int dp[303][303];
+int a[1000],su[1000];
+int dfs(int l,int r)
 {
-    int res=1;
-    while(b)
-    {
-        if(b&1)
-            res=res*a%mod;
-        a=a*a%mod;
-        b>>=1;
-    }
-    return res;
-}
-int C(int n,int m)
-{
-    if(n<m) return 0;
-    int res=1;
-    for(int i=1;i<=m;i++)
-    {
-        res*=((n-m+i)%mod)*qpow(i,mod-2)%mod;
-        res%=mod;
+    int &res=dp[l][r];
+    if(res!=INF)return res;
+    if(l==r)return 0;
+    for(int i=l;i<r;i++){
+        res=min(res,dfs(l,i)+dfs(i+1,r)+su[r]-su[l-1]);
     }
     return res;
 }
 void solve()
 {
 	cin>>n;
-	int ans=0;
-	ans=qpow(2,n)*C(2*n,n+3)%mod;
-	cout<<ans<<endl;
+    memset(dp,0x3f,sizeof(dp));
+    for(int i=1;i<=n;i++)cin>>a[i];
+    for(int i=1;i<=n;i++)su[i]=su[i-1]+a[i];
+    cout<<dfs(1,n)<<endl;
 }
 signed main()
 {
