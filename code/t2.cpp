@@ -1,69 +1,72 @@
-#pragma GCC optimize(3,"Ofast","inline")  	//G++
 #include<bits/stdc++.h>
-#define mem(a,x) memset(a,x,sizeof(a))
-#define debug(x) cout << #x << ": " << x << endl;
-#define ios ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-#define fcout cout<<setprecision(4)<<fixed
+#define IOS ios::sync_with_stdio(0);cout.tie(0);
 using namespace std;
-namespace FastIO {char buf[1 << 21], buf2[1 << 21], a[20], *p1 = buf, *p2 = buf, hh1 = '\n', hh2 = ' ';int p, p3 = -1;
-void read() {}
-void print() {buf2[p3] = hh1;}
-inline int getc() {return p1 == p2 && (p2 = (p1 = buf) + fread(buf, 1, 1 << 21, stdin), p1 == p2) ? EOF : *p1++;}
-inline void flush() {fwrite(buf2, 1, p3 + 1, stdout), p3 = -1;}
-template <typename T, typename... T2>
-inline void read(T &x, T2 &... oth) {int f = 0;x = 0;char ch = getc();while (!isdigit(ch)) {if (ch == '-')f = 1;ch = getc();}while (isdigit(ch)) {x = x * 10 + ch - 48;ch = getc();}x = f ? -x : x;read(oth...);}
-template <typename T, typename... T2>
-inline void print(T x, T2... oth) {if (p3 > 1 << 20)flush();if (x < 0)buf2[++p3] = 45, x = -x;do {a[++p] = x % 10 + 48;} while (x /= 10);do {buf2[++p3] = a[p];} while (--p);buf2[++p3] = hh2;print(oth...);}} // namespace FastIO
-using FastIO::print;
-using FastIO::read;
-typedef long long ll;
-typedef pair<int,int> pii;
-const int inf=0x3f3f3f3f;
-const int mod=1e9+7;
-const int maxn = 1e6+5;
-int mp[maxn];
-int a[maxn];
+const int maxn=2e5+7;
+int fi[maxn][40],fa[maxn][40];//f[i][j]从i开始2^j长度的最大值
+int p[maxn];//原数组 
+int n,m,x;
+int read(){
+    int num=0;char ch;
+    while((ch=getchar())<'0'||'9'<ch);
+    do num=num*10+ch-48,ch=getchar();while('0'<=ch&&ch<='9');
+    return num;
+}
+void sta()
+{
+	for(int i=1;i<=n;i++)//距离为0初始化 
+		fa[i][0]=p[i];
+	int t=log(n)/log(2)+1;//j定位 
+	for(int j=1;j<t;j++)
+	{
+		for(int i=1;i<=n-(1<<j)+1;i++)
+		{
+			fa[i][j]=max(fa[i][j-1],fa[i+(1<<(j-1))][j-1]);//f[i][j-1]为f[i][j]的长为2^j-1的前半段，另一段为f[i+(1<<(j-1))][j-1] 
+		}
+	}
+}
+void sti()
+{
+	for(int i=1;i<=n;i++)//距离为0初始化 
+		fi[i][0]=p[i];
+	int t=log(n)/log(2)+1;//j定位 
+	for(int j=1;j<t;j++)
+	{
+		for(int i=1;i<=n-(1<<j)+1;i++)
+		{
+			fi[i][j]=min(fi[i][j-1],fi[i+(1<<(j-1))][j-1]);//f[i][j-1]为f[i][j]的长为2^j-1的前半段，另一段为f[i+(1<<(j-1))][j-1] 
+		}
+	}
+}
+int querya(int l,int r)
+{
+	int k=log2(r-l+1);
+	return max(fa[l][k],fa[r-(1<<k)+1][k]);
+}
+int queryi(int l,int r)
+{
+	int k=log2(r-l+1);
+	return min(fi[l][k],fi[r-(1<<k)+1][k]);
+}
+void solve()
+{
+    int ans=0;
+    cin>>n>>x;
+    for(int i=1;i<=n;i++)cin>>p[i];
+    int ma=p[1],mi=p[1];
+    for(int i=1;i<=n;i++){
+        ma=max(ma,p[i]);
+        mi=min(mi,p[i]);
+        if(ma-mi>2*x){
+            ma=mi=p[i];
+            ans++;
+        }
+    }
+    cout<<ans<<endl;
+}
 int main()
 {
-    int T;
-    read(T);
-    while(T--)
-	{
-        int n;
-        read(n);
-        for(int i=0,x;i<n;i++)
-		{
-            read(x);
-            mp[x%3600]++;
-        }
-        int cnt=0;
-        for(int i=0;i<3600;i++)
-		{
-            if(!mp[i]) continue;
-            int k=1;
-            while(k<=mp[i])
-			{
-                a[++cnt]=i*k;
-                mp[i]-=k,k*=2;
-            }
-            if(mp[i])
-			{
-                a[++cnt]=mp[i]*i;
-                mp[i]=0;
-            }
-        }   
-        n=cnt;
-        bitset<3600>res,cur;
-        for(int i=1;i<=n;i++)
-		{
-            int x=a[i]%3600;
-            cur.reset(),cur[x]=1;
-            cur|=(res<<x)|(res>>(3600-x));
-            res|=cur;
-            if(res[0]) break;
-        }
-        puts(res[0]?"YES":"NO");
-    }
-    FastIO::flush();
-    return 0;
+	IOS
+	int __;
+    cin>>__;
+    while(__--)solve();
 }
