@@ -1,59 +1,55 @@
 /*
-	嵌套变量是否相同
-	特殊样例比如 0 1 2 n
-	数组是否越界
-	开long long
+小明的花店新开张，为了吸引顾客，他想在花店的门口摆上一排花，共m盆。
+通过调查顾客的喜好，小明列出了顾客最喜欢的n 
+种花，从1 到n 标号。为了在门口展出更多种花，规定第i 种花不能超过ai 盆，
+摆花时同一种花放在一起，且不同种类的花需按标号的从小到大的顺序依次摆列。
+试编程计算，一共有多少种不同的摆花方案。
 */
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define endl "\n"
+#define IOS ios::sync_with_stdio(0);cout.tie(0);
 #define int long long
-using ll=long long;
-using pii=pair<int,int>;
-const int mod=998244353;
-const int INF=0x3f3f3f3f;
-const int maxn=111;
-int dp[maxn][maxn];
-int a[maxn];
-int n;
+typedef long long ll;
+typedef pair<int,int> P;
+const int mod=1e6+7;
+int n,m,a[100005];
+int dp[10003];
+vector<int>v;
 void solve()
 {
-	cin>>n;
-	for(int i=1;i<=n;i++)
-		cin>>a[i];
-	int ans=0;
-	for(int q=1;q<=n;q++)
-	{
-		for(int i=0;i<=n;i++)
-			for(int j=0;j<=n;j++)
-				dp[i][j]=0;
-		dp[0][0]=1;//取了i个的时候，模数为j
-		for(int i=1;i<=n;i++)
-		{
-			for(int j=q;j>=1;j--)
-			{
-				for(int k=0;k<q;k++)
-				{
-					//cout<<j-1<<" "<<k<<" "<<dp[j-1][k]<<endl;
-					dp[j][(k+a[i])%q]+=dp[j-1][k];
-					dp[j][(k+a[i])%q]%=mod;
-					//cout<<j<<" "<<(k+a[i])%q<<" "<<dp[j][(k+a[i])%q]<<endl<<endl;
-				}
-			}
+	cin>>n>>m;
+	for(int i=1;i<=n;i++)cin>>a[i];
+	for(int i=1;i<=n;i++){
+		int t=1;
+		while(n>0){
+			if(n>=t)v.push_back(t);
+			else v.push_back(n);
+			n-=t;
+			t<<=1;
 		}
-		ans+=dp[q][0];
-		ans%=mod;
 	}
-	cout<<ans<<endl;
+	dp[0]=1;
+	for(int di:v)cout<<di<<" ";puts("");
+	for(int i=0;i<v.size();i++){
+		for(int j=10000;j>=v[i];j--){
+			dp[j]+=dp[j-v[i]];
+			dp[j]%=mod;
+		}
+	}
+	cout<<dp[m]<<endl;
 }
 signed main()
-{	
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);cout.tie(nullptr);
+{
+	IOS
+	int __=1;
+	//cin >> __;
+	while (__--)
 		solve();
-	return 0;
 }
 /*
-3
-1 1 1
+2 4
+3 2
+
+2 2
+3 1(2)
 */
