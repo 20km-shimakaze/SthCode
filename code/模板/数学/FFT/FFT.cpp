@@ -1,74 +1,60 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Comp{
+struct CP{
 	double x , y;
-	Comp( double _x = 0, double _y = 0. ){
+	CP( double _x = 0, double _y = 0. ){
 		x = _x;
 		y = _y;
 	}
-	Comp operator +(const Comp &b) {
-		return Comp( x + b.x , y + b.y );
+	CP operator +(const CP &b) {
+		return CP( x + b.x , y + b.y );
 	}
-	Comp operator -(const Comp &b) {
-		return Comp( x - b.x , y - b.y );
+	CP operator -(const CP &b) {
+		return CP( x - b.x , y - b.y );
 	}
-	Comp operator *(const Comp &b) {
-		return Comp( x * b.x - y * b.y , x * b.y + y * b.x );
+	CP operator *(const CP &b) {
+		return CP( x * b.x - y * b.y , x * b.y + y * b.x );
 	}
 };
-const int maxn = 222222;
-const double PI = acos(-1.);
-int rev[maxn];
-void FFT( Comp *a , int N , int inv ) 
-// inv  1 DFT( val -> dot )
-// inv -1 IDFT ( dot -> val )
+const int maxn = 2e6+7;//n+m
+const double PI = acos(-1);
+int tr[maxn<<1];
+CP f[maxn<<1],p[maxn<<1];
+int n,m;
+void FFT(CP *f,int flag)
 {
-	int bit = 0;
-	for( ; (1 << bit) < N ; ++bit );
-	
-	for( int i = 0 ; i < N ; ++i ){
-		rev[i] = (rev[i >> 1] >> 1) | ((i&1) << (bit - 1));
-		if( i < rev[i] ) swap(a[i] , a[rev[i]]);
+	for(int i=0;i<n;i++){
+		if(i<tr[i])swap(f[i],f[tr[i]]);
 	}
-	
-	for( int mid = 1 ; mid < N ; mid <<= 1 ){
-		Comp tmp( cos(PI / mid) , inv * sin(PI / mid) ); 
-		for( int i = 0 ; i < N ; i += mid * 2 ){
-			Comp omega(1.,0.);
-			for( int j = 0 ; j < mid ; ++j , omega = omega * tmp ){
-				Comp x = a[i + j] , y = omega * a[i + j + mid];
-				a[i + j] = x + y , a[i + j + mid] = x - y;
+	for(int p=2;p<=n;p<<=1){
+		int len=p>>1;
+		CP cp(cos(PI*2/p),sin(PI*2/p));
+		cp.y*=flag;
+		for(int k=0;k<n;k+=p){
+			CP buf(1,0);
+			for(int l=k;l<k+len;l++){
+				CP t=buf*f[len+l];
+				f[len+l]=f[l]-t;//F(W^{k+n/2})=FL(w^k)-W^k*FR(w^k)
+				f[l]=f[l]+t;	//F(W^k)=FL(w^k)+W^k*FR(w^k)
+				buf=buf*cp;
 			}
-		} 
-	}	
+		}
+	}
 }
-Comp a[maxn] , b[maxn];
-string s;
-int ans[maxn];
-int main(){
-	int N = 0;
-	cin >> N;
-	
-	cin>>s; for( int i = 0 ; i < N ; ++i ) a[i].x = s[N - 1 - i] - '0';
-	cin>>s; for( int i = 0 ; i < N ; ++i ) b[i].x = s[N - 1 - i] - '0';
-	int len = 1;
-	while( len < 2*N ) len <<= 1;
-	FFT( a , len , 1 );
-	FFT( b , len , 1 );
-	for( int i = 0 ; i <= len ; ++i ) a[i] = a[i] * b[i];
-	FFT( a , len ,-1 );
-	for(int i=0;i<=len;i++){
-        //ans[i]+=ceil(a[i].x/len);
-        ans[i] += (int)(a[i].x / len + 0.5);
-        if(ans[i]>=10){
-            ans[i+1]+=ans[i]/10;
-            ans[i]%=10;
-            if(i==len)len++;
-        }
-    }
-	while( 0 == ans[len] && len >= 1 ) --len;
-	len++;
-	while( --len >= 0 ) cout << ans[len];
-	return 0;
+signed main()
+{
+	cin>>n>>m;
+	for(int i=0;i<=n;i++)scanf("%lf",&f[i].x);
+	for(int i=0;i<=m;i++)scanf("%lf",&p[i].x);
+	for(m+=n,n=1;n<=m;n<<=1);
+	for(int i=0;i<n;i++){
+		tr[i]=(tr[i>>1]>>1)|((i&1)?n>>1:0);
+	}
+	FFT(f,1);
+	FFT(p,1);
+	for(int i=0;i<n;i++)f[i]=f[i]*p[i];
+	FFT(f,-1);
+	puts("");
+	for(int i=0;i<=m;i++)printf("%d ",(int)(f[i].x/n+0.5));
 }
