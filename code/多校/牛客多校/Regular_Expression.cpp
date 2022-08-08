@@ -1,3 +1,8 @@
+/*
+当字符串长度为1时，只有. a 所以一定是1 2
+当长度为2时，存在aa ab这样的，aa比ab多了a* a+
+更多时，看是否是都是一个字符组成
+*/
 #include <bits/stdc++.h>
 using namespace std;
 #define IOS ios::sync_with_stdio(0);cout.tie(0);

@@ -4,10 +4,20 @@ using namespace std;
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-const int N=2e5+7;
 void solve()
 {
-	
+	string s,t;
+    cin>>s>>t;
+    int an=1e9;
+    int n=s.size(),m=t.size();
+    for(int i=0;i<=n-m;i++){
+        int num=0;
+        for(int j=0;j<t.size();j++){
+            if(s[i+j]!=t[j])num++;
+        }
+        an=min(an,num);
+    }
+    cout<<an<<endl;
 }
 signed main()
 {

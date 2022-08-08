@@ -1,3 +1,6 @@
+/*
+直接用双向队列判断（类似括号匹配），最后由于是环，还要对队列左右判断
+*/
 #include<bits/stdc++.h>
 using namespace std;
 #define endl "\n"

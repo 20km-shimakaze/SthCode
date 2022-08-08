@@ -4,10 +4,11 @@ using namespace std;
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-const int N=2e5+7;
 void solve()
 {
-	
+	int d,t,s;
+    cin>>d>>t>>s;
+    puts(t*s>=d?"Yes":"No");
 }
 signed main()
 {
