@@ -4,70 +4,50 @@ using namespace std;
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-//const int N=2e5+7;
-const int N=20;
-int dp[N+3][N+3][N+3];
-int dfs(int a,int b,int c)
+const int N=5e5+7;
+const int mod=998244353;
+int dep[N],fa[N];
+int dp[N][3];
+vector<int>v[N];
+int n;
+void dfs(int p,int fa)
 {
-	int &res=dp[a][b][c];
-	if(res!=-1)return res;
-	//cout<<a<<" "<<b<<" "<<c<<endl;
-	if(a<=abs(b-c)||c<=abs(a-b)||b<=abs(a-c)||a>=(b+c)||b>=(a+c)||c>=a+b)return res=0;
-	//cout<<"&&&"<<a<<b<<c<<endl;
-	if(a==b){
-		if(c==1)return res=0;
-		else return res=1;
+	dp[p][1]=1;
+	int sum=0;
+	for(int di:v[p]){
+		if(fa==di)continue;
+		dfs(di,p);
+		sum+=dp[di][0];
 	}
-	else if(a==c){
-		if(b==1)return res=0;
-		else return res=1;
+	for(auto di:v[p]){
+		if(fa==di)continue;
+		dp[p][0]+=max({dp[di][0],dp[di][1],dp[di][2]});
+		dp[p][1]=max({dp[p][1],sum+1});
+		dp[p][2]=max(dp[p][2],dp[di][1]+1+sum-dp[di][0]);
 	}
-	else if(b==c){
-		if(a==1)return res=0;
-		else res=1;
-	}
-	for(int i=a-1;i>=1&&i>abs(b-c)&&i<abs(c+b);i--){
-		int t=dfs(i,b,c);
-		if(t==0)return res=1;
-	}
-	for(int i=b-1;i>=1&&i>abs(a-c)&&i<abs(c+a);i--){
-		int t=dfs(a,i,c);
-		if(t==0)return res=1;
-	}
-	for(int i=c-1;i>=1&&i>abs(b-a)&&i<abs(a+b);i--){
-		int t=dfs(a,b,i);
-		if(t==0)return res=1;
-	}
-	return res=0;
 }
 void solve()
 {
-	memset(dp,-1,sizeof(dp));
-	//dp[1][1][1]=0;
-	for(int i=1;i<=N;i++){
-		for(int j=1;j<=N;j++){
-			for(int k=1;k<=N;k++){
-				dfs(i,j,k);
-				//cout<<i<<j<<k<<"=";
-				//cout<<dp[i][j][k]<<" \033[0;35m 233 \033[0m";
-				// if(dp[i][j][k]){
-				// 	cout<<"\033[0;35m1\033[0m ";
-				// }
-				// else cout<<0<<" ";
-				if(i<=abs(j-k)||k<=abs(i-j)||j<=abs(i-k)||i>=(j+k)||j>=(i+k)||k>=i+j)continue;
-				if(i>j||j>k||i>k)continue;
-				if(dp[i][j][k]==0)cout<<i<<" "<<j<<" "<<k<<" "<<k-j<<endl;
-			}
-			//puts("");
-		}
-		puts("-----------------");
+	cin>>n;
+	for(int i=1;i<=n;i++)v[i].clear(),dp[i][0]=dp[i][1]=dp[i][2]=0;
+	for(int i=1;i<n;i++){
+		int x,y;
+		cin>>x>>y;
+		v[x].push_back(y);
+		v[y].push_back(x);
 	}
+	dfs(1,0);
+	cout<<max({dp[1][0],dp[1][1],dp[1][2]})<<endl;
 }
 signed main()
 {
-	//IOS
+	IOS
+	// int size(512<<20);  // 512M
+	// __asm__ ( "movq %0, %%rsp\n"::"r"((char*)malloc(size)+size));
 	int __=1;
-	//cin >> __;
+	cin>>__;
 	while (__--)
 		solve();
+	exit(0);
+	return 0;
 }

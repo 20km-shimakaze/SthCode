@@ -5,6 +5,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int,int> P;
 const int N=2e5+7;
+const int mod=998244353;
 void solve()
 {
 	

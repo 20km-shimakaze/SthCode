@@ -53,6 +53,24 @@ int Lucas(int n,int m)
     if(m==0) return 1;
     return (Lucas(n/mod,m/mod)*C(n%mod,m%mod))%mod;
 }
+/*
+int inv[N];
+void init_inv(int n)
+{
+	inv[1]=1;
+	for(int i=2;i<=n;i++){
+		inv[i]=(mod-mod/i)*inv[mod%i]%mod;
+	}
+}
+int C(int n,int m)//需要先处理inv,范围m
+{
+	int s=1;
+	for(int i=0;i<m;i++){
+		s=s*(n-i)%mod*inv[i+1]%mod;
+	}
+	return s;
+}
+*/
 signed main()
 {
     int n;
