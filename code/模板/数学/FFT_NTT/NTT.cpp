@@ -3,7 +3,7 @@
 #define int long long
 #define mod 998244353
 #define G 3
-#define N 1350000
+const int N=1350000;
 using namespace std;
 inline int read()
 {

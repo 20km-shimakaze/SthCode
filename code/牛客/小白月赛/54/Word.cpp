@@ -66,7 +66,7 @@ void solve()
 				cout<<s[at[i]]<<endl;
 			}
 			cout<<sb<<endl;
-			break;
+			return;
 		}
 		if(vis[id])continue;
 		vis[id]=1;
