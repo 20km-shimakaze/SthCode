@@ -1,64 +1,71 @@
-#include<bits/stdc++.h>
-#define ll long long
-#define int long long
-#define mod 998244353
-#define G 3
-#define N 1350000
+#include <bits/stdc++.h>
 using namespace std;
-inline int read()
+#define IOS ios::sync_with_stdio(0);cout.tie(0);
+#define int long long
+typedef long long ll;
+typedef pair<int,int> P;
+const int N=2e5+7;
+const int mod=998244353;
+string s;
+int num[N][4];//0r  1e  2d 3?
+void solve()
 {
-    int x=0,f=1;char ch=getchar();
-    while(ch<'0'||ch>'9') {if(ch=='-')f=-1;ch=getchar();}
-    while(ch>='0'&&ch<='9'){x=x*10+ch-'0';ch=getchar();}
-    return x*f;
-}
-int qpow(int a,int t=mod-2)
-{
-    int ans=1;
-    while(t){
-        if(t&1)ans=(ans*a)%mod;
-        a=(a*a)%mod;
-        t>>=1;
+	cin>>s;
+    int fl=0;
+    int len=s.size()/3;
+    int n=s.size();
+    int a=0,b=0,c=0,d=0;
+    for(int i=n-1;i>=0;i--){
+        if(s[i]=='r')a++;
+        if(s[i]=='e')b++;
+        if(s[i]=='d')c++;
+        if(s[i]=='?')d++;
+        num[i][0]=a;
+        num[i][1]=b;
+        num[i][2]=c;
+        num[i][3]=d;
     }
-    return ans;
-}
-int n,m,tr[N<<1];
-int f[N<<1],g[N<<1],invn;
-const int invG=qpow(G);
-void NTT(int *f,bool op)
-{
-    for(int i=0;i<n;i++){
-        if(i<tr[i])swap(f[i],f[tr[i]]);
+    if(a>len||b>len||c>len){
+        cout<<"No"<<endl;
+        return;
     }
-    for(int p=2;p<=n;p<<=1){
-        int len=p>>1,tG=qpow(op?G:invG,(mod-1)/p);
-        for(int k=0;k<n;k+=p){
-            int buf=1;
-            for(int l=k;l<k+len;l++){
-                int tt=buf*f[len+l]%mod;
-                f[len+l]=(f[l]-tt+mod)%mod;
-                f[l]=(f[l]+tt)%mod;
-                buf=buf*tG%mod;
+    a=b=c=d=0;
+    for(int i=n-1;i>=0;i--){
+        if(s[i]=='e'){//匹配ed/e?
+            if(num[i][2]-c>0){//优先匹配ed
+                c++;
+                continue;
             }
+            if(num[i][3]-d>0){//其次匹配e?
+                d++;
+                continue;
+            }
+            fl=1;
+        }
+        if(s[i]=='r'){//匹配re/e?
+            if(num[i][1]-b>0){//若在前面存在e已经判断过e后面是否有d
+                b++;
+                continue;
+            }
+            if(num[i][3]-d>0&&num[i][2]-c>0){//有d存在，找一个？当e来匹配
+                d++,c++;
+                continue;
+            }
+            if(num[i][3]-d>1){//没有ed，用俩？？
+                d+=2;
+                continue;
+            }
+            fl=1;
         }
     }
+    if(fl)cout<<"No"<<endl;
+    else cout<<"Yes"<<endl;
 }
 signed main()
 {
-    cin>>n>>m;
-    n++,m++;
-    for(int i=0;i<n;i++)f[i]=read();
-    for(int i=0;i<m;i++)g[i]=read();
-    for(m+=n,n=1;n<m;n<<=1);
-    for(int i=0;i<n;i++){
-        tr[i]=(tr[i>>1]>>1)|((i&1)?n>>1:0);
-    }
-    NTT(f,1),NTT(g,1);
-    for(int i=0;i<n;i++)f[i]=f[i]*g[i]%mod;
-    //for(int i=0;i<n;i++)cout<<f[i]<<" ";
-    NTT(f,0);
-    invn=qpow(n);   
-    for(int i=0;i<m-1;i++){
-        cout<<(int)(f[i]*invn%mod)<<" ";
-    }
+	//IOS
+	int __=1;
+	cin >> __;
+	while (__--)
+		solve();
 }
