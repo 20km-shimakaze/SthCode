@@ -71,6 +71,25 @@ int C(int n,int m)//需要先处理inv,范围m
 	return s;
 }
 */
+/*
+//大范围预处理阶乘和逆元
+int fac[N],inv[N];
+void init(int n)
+{
+	inv[0]=fac[0]=1;
+	for(int i=1;i<=n;i++){
+		inv[i]=inv[i-1]*qpow(i,mod-2)%mod;
+	}
+	for(int i=1;i<=n;i++){
+		fac[i]=(fac[i-1]*i)%mod;
+	}
+}
+int C(int n,int m)
+{
+    if(m>n)return 0;
+    return fac[n]*inv[m]%mod*inv[n-m]%mod;
+}
+*/
 signed main()
 {
     int n;

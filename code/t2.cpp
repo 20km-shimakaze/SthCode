@@ -1,54 +1,65 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define endl "\n"
-using ll=long long;
-using pii=pair<int,int>;
-const int inf=0x3f3f3f3f;
-const int INF=1e9+7;
-const int maxn=1e6;
-int p[maxn],num[maxn];
-long double t[maxn];
-int n,m;
-int find(int r){
-	return p[r]=p[r]==r?p[r]:find(p[r]);
-}
-void init()
+#define IOS ios::sync_with_stdio(0);cout.tie(0);
+#define int long long
+typedef long long ll;
+typedef pair<int,int> P;
+const int N=1e6+7;
+const int mod=998244353;
+int ans=0;
+int km(int a,int b)
 {
-	for(int i=1;i<=n;i++)
+	int ans=1;
+	while(b)
 	{
-		p[i]=i;
-		num[i]=1;
+		if(b&1)
+			ans=ans*a%mod;
+		a=a*a%mod;
+		b>>=1;
 	}
+	return ans;
 }
-void solve()
+int inv[20];
+int a[10],b[10];
+int dfs(int sum)
 {
-	scanf("%d%d",&n,&m);
-	init();
-	for(int i=1;i<=n;i++)
-		scanf("%Lf",&t[i]);
-	for(int i=1;i<=m;i++)
+	if(b[0]<=0)return sum;
+	if(a[0]<=0)return 0;
+	int cnt=0;
+	for(int i=0;i<8;i++)
+		if(a[i]>0)cnt++;
+	for(int i=0;i<8;i++)
+		if(b[i]>0)cnt++;
+	int ans=0;
+	for(int i=0;i<8;i++)
 	{
-		int x,y;
-		scanf("%d%d",&x,&y);
-		int fa=find(x);
-		int fb=find(y);
-		if(fa!=fb)
+		if(a[i]>0)
 		{
-			p[fb]=fa;
-			num[fa]+=num[fb];
-			t[fa]+=t[fb];
+			a[i]-=10;
+			ans+=dfs(sum*inv[cnt]%mod);
+			if(ans>=mod)ans-=mod;
+			a[i]+=10;
 		}
 	}
-	for(int i=1;i<=n;i++)
+	for(int i=0;i<8;i++)
 	{
-		int x=find(i);
-		printf("%.6lf\n",1.0*t[x]/num[x]);
+		if(b[i]>0)
+		{
+			b[i]-=10;
+			ans+=dfs(sum*inv[cnt]%mod);
+			if(ans>=mod)ans-=mod;
+			b[i]+=10;
+		}
 	}
+	return ans;
 }
 signed main()
 {
-	int __;cin>>__;
-	while(__--)
-		solve();
-	return 0;
+	for(int i=1;i<=16;i++)
+		inv[i]=km(i,mod-2);
+	for(int i=0;i<8;i++)
+		cin>>a[i];
+	for(int i=0;i<8;i++)
+		cin>>b[i];
+	cout<<dfs(1);
 }

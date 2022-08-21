@@ -6,22 +6,13 @@ typedef long long ll;
 typedef pair<int,int> P;
 const int N=2e5+7;
 const int mod=998244353;
-int qpow(int a,int b)
-{
-	int res=1;
-	while(b){
-		if(b&1)res=res*a%mod;
-		a=a*a%mod;
-		b>>=1;
-	}
-	return res;
-}
-int s[8][2];
+int vis[N];
+int n,m,k,ma;
+vector<int>v,vv;
 void solve()
 {
-	for(int i=1;i<=100000;i++){
-        if(qpow(i,mod-2)==226164737)cout<<i<<endl;
-    }
+	cin>>n>>m>>k;
+    
 }
 signed main()
 {
