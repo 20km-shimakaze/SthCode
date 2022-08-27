@@ -4,23 +4,46 @@ using namespace std;
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-const int N=2e5+7;
+const int N=2e5+200;
 const int mod=998244353;
-int qpow(int a,int b)
+const int maxn=280000;
+int n,q;
+int a[maxn],an[maxn];
+int pri[maxn];
+vector<int>pr;
+void get_pri()
 {
-	int res=1;
-	while(b){
-		if(b&1)res=res*a%mod;
-		a=a*a%mod;
-		b>>=1;
-	}
-	return res;
+    pri[0]=pri[1]=1;
+    for(int i=2;i<maxn;i++){
+        if(pri[i])continue;
+        for(int j=i+i;j<maxn;j+=i){
+            pri[j]=1;
+        }
+    }
 }
-int s[8][2];
+int vis[N];
 void solve()
 {
-	for(int i=1;i<=100000;i++){
-        if(qpow(i,mod-2)==226164737)cout<<i<<endl;
+	cin>>n>>q;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+    }
+    get_pri();
+    int nn=2;
+    for(int i=1;i<=n;i++){
+        for(int j=nn;j<maxn;j++){
+            if((!pri[j])&&(!vis[j])){
+                an[i]=j;
+                nn=j;
+                break;                
+            }
+        }
+        vis[a[i]]=1;
+    }
+    for(int i=1;i<=q;i++){
+        int qq;
+        cin>>qq;
+        cout<<an[qq]<<endl;
     }
 }
 signed main()

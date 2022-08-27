@@ -1,8 +1,8 @@
 //tarjan
 //求强连通分量才要stack
-//x是割点 	case 1: 非root点 && x->y && low[y]>=dfn[x]
+//x是割点 	case 1: 非root点 && y->y && low[y]>=dfn[y]
 //			case 2:  root点  && 有>=2个儿子
-// x->y是桥 low[y]>dfs[x] 
+// y->y是桥 low[y]>dfs[y] 
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
@@ -10,29 +10,29 @@ using namespace std;
 vector<int>vec[1000];
 stack<int>s;
 int vis[1000],dfn[1000],low[1000],t=0;
-void dfs(int p)
+void dfs(int x)
 {
-	dfn[p]=low[p]=++t;
-	vis[p]=1;
-	s.push(p);
-	for(int i=0;i<vec[p].size();i++){
-		int x=vec[p][i];
-		if(dfn[x]==0){
-			dfs(x);
-			low[p]=min(low[p],low[x]);
+	dfn[x]=low[x]=++t;
+	vis[x]=1;
+	s.push(x);
+	for(int i=0;i<vec[x].size();i++){
+		int y=vec[x][i];
+		if(dfn[y]==0){
+			dfs(y);
+			low[x]=min(low[x],low[y]);
 		}
-		else if(vis[x]){
-			low[p]=min(low[p],low[x]);
+		else if(vis[y]){
+			low[x]=min(low[x],low[y]);
 		}
 	}
 	int mm;
-	if(dfn[p]==low[p]){
+	if(dfn[x]==low[x]){
 		while(1){
 			mm=s.top();
 			s.pop();
 			cout<<mm<<" ";
 			vis[mm]=0;
-			if(mm==p)break;
+			if(mm==x)break;
 		}
 		puts("");
 	}

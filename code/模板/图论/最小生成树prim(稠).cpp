@@ -1,63 +1,56 @@
 #include<bits/stdc++.h>
+#define ll long long
 using namespace std;
-const int INF=0x3f3f3f3f;
-int n,m;
-int a,b,c;
-int dis[5005];
-struct poi
+
+const int maxn=2e5+15;
+const int mxn=5e3+15;
+struct node
 {
-    int b,v;
+    int t;int d;
+    bool operator < (const node &a) const
+    {
+        return d>a.d;
+    }
 };
-vector<poi>v[200005];
-int vis[5005];
-int now=1,tot,ans;
-void solve()
+int n,m;
+int vis[mxn];
+vector <node> e[mxn];
+priority_queue <node> q;
+inline int read()
 {
-    for(int i=2;i<=n;i++){
-        dis[i]=INF;
-    }
-    for(int i=0;i<v[now].size();i++){
-        dis[v[now][i].b]=min(dis[v[now][i].b],v[now][i].v);
-    }
-    while(++tot<n){
-        int minn=INF;
-        vis[now]=1;
-        for(int i=1;i<=n;i++){
-            if(!vis[i]&&minn>dis[i]){
-                minn=dis[i];
-                now=i;
-            }
+    char ch=getchar();
+    int s=0,f=1;
+    while (!(ch>='0'&&ch<='9')) {if (ch=='-') f=-1;ch=getchar();}
+    while (ch>='0'&&ch<='9') {s=(s<<3)+(s<<1)+ch-'0';ch=getchar();}
+    return s*f;
+}
+ll prim()
+{
+    ll ans=0;
+    int cnt=0;
+    q.push((node){1,0});
+    while (!q.empty()&&cnt<=n)
+    {
+        node k=q.top();q.pop();
+        if (vis[k.t]) continue;
+        vis[k.t]=1;
+        ans+=k.d;
+        cnt++;
+        for (int i=0;i<e[k.t].size();i++)
+        if (!vis[e[k.t][i].t]){
+            q.push((node){e[k.t][i].t,e[k.t][i].d});
         }
-        ans+=minn;
-        for(int i=0;i<v[now].size();i++){
-            int t=v[now][i].v;
-            int bb=v[now][i].b;
-            if(!vis[bb]&&dis[bb]>t){
-                dis[bb]=t;
-            }
-        }
-        //cout<<minn<<" "<<now<<endl;
     }
+    return ans;
 }
 int main()
 {
-    cin>>n>>m;
-    poi aa;
-    for(int i=1;i<=m;i++){
-        cin>>a>>b>>c;
-        aa.b=b;
-        aa.v=c;
-        v[a].push_back(aa);
-        aa.b=a;
-        v[b].push_back(aa);
+    n=read();m=read();
+    for (int i=1;i<=m;i++)
+    {
+        int x=read(),y=read(),z=read();
+        e[x].push_back((node){y,z});e[y].push_back((node){x,z});
     }
-    solve();
-    for(int i=2;i<=n;i++){
-        if(dis[i]==INF){
-            cout<<"orz"<<endl;
-            return 0;
-        }
-    }
-    
-    cout<<ans<<endl;
+    printf("%lld",prim());
+    return 0;
 }

@@ -10,44 +10,72 @@ int head[N],cnt;
 struct Edge
 {
 	int to,next;
-}edge[N];
+}ed[N];
 void add(int from,int to)
 {
-	edge[++cnt].to=to;
-	edge[cnt].next=head[from];
+	ed[++cnt].to=to;
+	ed[cnt].next=head[from];
 	head[from]=cnt;
 }
 int n,m;
-int vis[N];
+stack<int>st;
+bitset<N>vis;
+int dfn[N],low[N],idx;
+int ans,col[N],w[N];	
+int in[N];
+void tarjan(int x)
+{
+	dfn[x]=low[x]=++idx;
+	st.push(x);
+	vis[x]=1;
+	for(int i=head[x];i;i=ed[i].next){
+		int y=ed[i].to;
+		if(!dfn[y]){
+			tarjan(y);
+			low[x]=min(low[x],low[y]);
+		}
+		else if(vis[y])low[x]=min(low[x],dfn[y]);
+	}
+	if(low[x]==dfn[x]){
+		int y;
+		ans++;
+		do{
+			y=st.top();
+			st.pop();
+			col[y]=ans;
+			w[ans]=min(w[ans],y);
+			vis[y]=0;
+		}while(x!=y);
+	}
+}
 void solve()
 {
-	while(cin>>n>>m){
-		vector<int>v;
-		for(int i=1;i<=n;i++)vis[i]=0,head[i]=0;
-		cnt=0;
-		for(int i=1;i<=m;i++){
-			int x,y;
-			cin>>x>>y;
-			add(x,y);
-			vis[y]++;
-		}
-		priority_queue<int,vector<int>,greater<int>>q;
-		for(int i=1;i<=n;i++){
-			if(!vis[i])q.push(i);
-		}
-		while(q.size()){
-			int a=q.top();
-			q.pop();
-			v.push_back(a);
-			for(int i=head[a];i;i=edge[i].next){
-				int t=edge[i].to;
-				vis[t]--;
-				if(!vis[t])q.push(t);
-			}
-		}
-		for(int i=0;i<(int)v.size()-1;i++)cout<<v[i]<<" ";
-		cout<<v[(int)v.size()-1]<<endl;
+	cin>>n>>m;
+	for(int i=1;i<=n;i++)w[i]=INT_MAX;
+	for(int i=1;i<=m;i++){
+		int u,v;
+		cin>>u>>v;
+		add(u,v);
 	}
+	for(int i=1;i<=n;i++){
+		if(!dfn[i])tarjan(i);
+	}
+	for(int i=1;i<=n;i++){
+		for(int j=head[i];j;j=ed[j].next){
+			int y=ed[j].to;
+			if(col[i]!=col[y])in[col[y]]++;
+		}
+	}
+	vector<int>an;
+	for(int i=1;i<=ans;i++){
+		cout<<w[i]<<" ";
+		if(!in[i]){
+			an.push_back(w[i]);
+		}
+	}puts("");
+	sort(an.begin(),an.end());
+	cout<<an.size()<<endl;
+	for(auto i:an)cout<<i<<" ";
 }
 signed main()
 {
