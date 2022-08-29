@@ -40,10 +40,10 @@ void solve()
 {
 	cin>>n>>m;
 	for(int i=1;i<=m;i++){
-		int y,y;
-		cin>>y>>y;
-		add(y,y);
-		add(y,y);
+		int x,y;
+		cin>>x>>y;
+		add(x,y);
+		add(y,x);
 	}
 	for(int i=1;i<=n;i++){
 		if(!dfn[i]){

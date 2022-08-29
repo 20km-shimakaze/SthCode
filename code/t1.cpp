@@ -1,87 +1,105 @@
 #include <bits/stdc++.h>
+//#define int long long
+
+#define endl '\n'
 using namespace std;
-#define IOS ios::sync_with_stdio(0);cout.tie(0);
-#define int long long
-typedef long long ll;
-typedef pair<int,int> P;
-const int N=2e5+7;
-const int mod=998244353;
-int head[N],cnt;
-struct Edge
-{
-	int to,next;
-}ed[N];
-void add(int from,int to)
-{
-	ed[++cnt].to=to;
-	ed[cnt].next=head[from];
-	head[from]=cnt;
-}
+using ll=long long;
+using pii=pair<int,int>;
+
+const int maxn=100005;
+
 int n,m;
-stack<int>st;
-bitset<N>vis;
-int dfn[N],low[N],idx;
-int ans,col[N],w[N];	
-int in[N];
-void tarjan(int x)
+int a[maxn];
+
+struct node
 {
-	dfn[x]=low[x]=++idx;
-	st.push(x);
-	vis[x]=1;
-	for(int i=head[x];i;i=ed[i].next){
-		int y=ed[i].to;
-		if(!dfn[y]){
-			tarjan(y);
-			low[x]=min(low[x],low[y]);
-		}
-		else if(vis[y])low[x]=min(low[x],dfn[y]);
-	}
-	if(low[x]==dfn[x]){
-		int y;
-		ans++;
-		do{
-			y=st.top();
-			st.pop();
-			col[y]=ans;
-			w[ans]=min(w[ans],y);
-			vis[y]=0;
-		}while(x!=y);
-	}
-}
-void solve()
+	int l,r;
+	int cnt;
+}t[maxn<<2][20];
+
+void build(int k,int i,int l,int r)
 {
-	cin>>n>>m;
-	for(int i=1;i<=n;i++)w[i]=INT_MAX;
-	for(int i=1;i<=m;i++){
-		int u,v;
-		cin>>u>>v;
-		add(u,v);
+	t[k][i]={l,r};
+	if(l==r)
+	{
+		t[k][i].cnt=(a[l]>>i)&1;
+		return;
 	}
-	for(int i=1;i<=n;i++){
-		if(!dfn[i])tarjan(i);
-	}
-	for(int i=1;i<=n;i++){
-		for(int j=head[i];j;j=ed[j].next){
-			int y=ed[j].to;
-			if(col[i]!=col[y])in[col[y]]++;
-		}
-	}
-	vector<int>an;
-	for(int i=1;i<=ans;i++){
-		cout<<w[i]<<" ";
-		if(!in[i]){
-			an.push_back(w[i]);
-		}
-	}puts("");
-	sort(an.begin(),an.end());
-	cout<<an.size()<<endl;
-	for(auto i:an)cout<<i<<" ";
+	int mid=(t[k][i].l+t[k][i].r)/2;
+	build(k<<1,i,l,mid);
+	build(k<<1|1,i,mid+1,r);
+	t[k][i].cnt=t[k<<1][i].cnt+t[k<<1|1][i].cnt;
+	return;
 }
+
+int query(int k,int i,int l,int r)
+{
+	if(l<=t[k][i].l&&t[k][i].r<=r)
+	{
+		return t[k][i].cnt;
+	}
+	int mid=(t[k][i].l+t[k][i].r)/2;
+	int res=0;
+	if(l<=mid)
+		res+=query(k<<1,i,l,r);
+	if(mid<r)
+		res+=query(k<<1|1,i,l,r);
+	return res;
+}
+
+void modify(int k,int i,int l,int r,int x)
+{
+	// cout<<k<<" "<<i<<" "<<l<<" "<<r<<" "<<x<<"\n";
+	if(l<=t[k][i].l&&t[k][i].r<=r)
+	{
+		// cout<<"k="<<k<<endl;
+		t[k][i].cnt=t[k][i].r-t[k][i].l+1-t[k][i].cnt;
+		return;
+	}
+	int mid=(t[k][i].l+t[k][i].r)/2;
+	if(l<=mid)
+		modify(k<<1,i,l,r,x);
+	// if(mid<r)
+	// 	modify(k<<1|1,i,l,r,x);
+	return;
+}
+
 signed main()
 {
-	//IOS
-	int __=1;
-	//cin >> __;
-	while (__--)
-		solve();
+	cin>>n;
+	for(int i=1;i<=n;i++)
+		cin>>a[i];
+	for(int i=0;i<=20;i++)
+		build(1,i,1,n);
+	cin>>m;
+	while(m--)
+	{
+		int op,l,r;
+		cin>>op>>l>>r;
+		// cout<<"op="<<op<<endl;
+		if(op==1)
+		{
+			int res=0;
+			for(int i=0;i<=20;i++){
+				// cout<<query(1,i,l,r)<<"\n";
+				res+=query(1,i,l,r)*(1<<i);
+				// cout<<i<<endl;
+			}
+			cout<<res<<endl;
+		}
+		if(op==2)
+		{
+			int x;cin>>x;
+			for(int i=0;i<=20;i++)
+				modify(1,i,l,r,x);
+			// cout<<"finish"<<endl;
+		}
+	}
+	return 0;
 }
+/*
+5
+4 10 3 13 7
+1
+1 2 4
+*/
