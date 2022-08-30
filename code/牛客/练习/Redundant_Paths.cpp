@@ -21,7 +21,7 @@ void add(int from,int to)
     head[from]=cnt;
 }
 map<P,int>mp;
-void tarjan(int x,int fa)
+void tarjan(int x,int fa)//fa¸¸±ß
 {
     dfn[x]=low[x]=++idx;
     st.push(x);
@@ -32,7 +32,7 @@ void tarjan(int x,int fa)
             tarjan(y,i);
             low[x]=min(low[x],low[y]);
         }
-        else if(i!=(fa^1)&&vis[y]&&dfn[y]<dfn[x])low[x]=min(low[x],dfn[y]);
+        else if(i!=(fa^1)&&dfn[y]<dfn[x])low[x]=min(low[x],dfn[y]);
     }
     if(dfn[x]==low[x]){
         int y;
