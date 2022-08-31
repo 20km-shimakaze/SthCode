@@ -12,7 +12,7 @@ struct node
 {
     int id,dis;
     friend bool operator < (node a,node b){
-        return a.dis<b.dis;
+        return a.dis>b.dis;
     }
 };
 struct poi
@@ -67,10 +67,7 @@ void solve()
             v[x].push_back(a);
         }
         dij();
-        //cout<<dis[n]<<endl;
-        for(int i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }puts("");
+        cout<<dis[n]<<endl;
     }
 }
 signed main()
