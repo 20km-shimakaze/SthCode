@@ -1,18 +1,19 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include<queue>
 using namespace std;
 #define IOS ios::sync_with_stdio(0);cout.tie(0);
-#define int long long
+//#define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-const int N=2e5+7;
+const int N=2e4;
 const int mod=998244353;
-const int INF=0x3f3f3f3f3f3f3f3f;
+const int INF=0x3f3f3f3f;
 int n,m;
 struct node
 {
     int id,dis;
     friend bool operator < (node a,node b){
-        return a.dis<b.dis;
+        return a.dis>b.dis;
     }
 };
 struct poi
@@ -50,12 +51,14 @@ void dij()
 }
 void solve()
 {
-	while(cin>>n>>m,n||m){
+    while(cin>>n>>m)
+    {
         poi a;
-        memset(dis,0x3f,sizeof(int)*(n+10));
+        //memset(dis,0x3f,sizeof(int)*(n+10));
         for(int i=1;i<=n;i++){
             v[i].clear();
             vis[i]=0;
+            dis[i]=INF;
         }
         for(int i=1;i<=m;i++){
             int x,y,c;
@@ -67,10 +70,10 @@ void solve()
             v[x].push_back(a);
         }
         dij();
-        //cout<<dis[n]<<endl;
-        for(int i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }puts("");
+        cout<<dis[n]<<endl;
+        // for(int i=1;i<=n;i++){
+        //     cout<<dis[i]<<" ";
+        // }puts("");
     }
 }
 signed main()
