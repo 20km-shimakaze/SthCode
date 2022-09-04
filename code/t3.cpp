@@ -4,46 +4,31 @@ using namespace std;
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-const int N=2e5+200;
+const int N=2e5+7;
 const int mod=998244353;
-const int maxn=280000;
-int n,q;
-int a[maxn],an[maxn];
-int pri[maxn];
-vector<int>pr;
-void get_pri()
+int dp[1000][1000];
+int n,p;
+int dfs(int l,int r)
 {
-    pri[0]=pri[1]=1;
-    for(int i=2;i<maxn;i++){
-        if(pri[i])continue;
-        for(int j=i+i;j<maxn;j+=i){
-            pri[j]=1;
-        }
+    int &res=dp[l][r];
+    if(res!=0)return res;
+    if(l==r)return res=1;
+    for(int i=l+1;i<=r;i++){
+        if(i*p<r)continue;
+        int t=dfs(l,i-1);
+        if(t==-1)return res=1;//N
     }
+    return res=-1;//P
 }
-int vis[N];
 void solve()
 {
-	cin>>n>>q;
-    for(int i=1;i<=n;i++){
-        cin>>a[i];
-    }
-    get_pri();
-    int nn=2;
-    for(int i=1;i<=n;i++){
-        for(int j=nn;j<maxn;j++){
-            if((!pri[j])&&(!vis[j])){
-                an[i]=j;
-                nn=j;
-                break;                
-            }
+    int n=20;p=100;
+	for(int l=1;l<=n;l++){
+        for(int r=1;r<=n;r++){
+            if(r>=l)printf("%2lld",dfs(l,r));
+            else cout<<"* ";
         }
-        vis[a[i]]=1;
-    }
-    for(int i=1;i<=q;i++){
-        int qq;
-        cin>>qq;
-        cout<<an[qq]<<endl;
+        puts("");
     }
 }
 signed main()
