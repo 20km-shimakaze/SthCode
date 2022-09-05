@@ -35,6 +35,7 @@ signed main()
 {
 	//IOS
 	int __=1;
+    poi a;
 	//cin >> __;
 	while (__--)
 		solve();
