@@ -1,0 +1,22 @@
+{
+	"qpow": {
+		"prefix": "qpow",
+		"body": [
+			"int qpow(ll a,ll n)",
+			"{",
+			"\tif(a%mod==0)return 0;",
+			"\tll ans=1;",
+			"\twhile(n){",
+			"\t\tif(n&1){",
+			"\t\t\tans=ans*a%mod;",
+			"\t\t}",
+			"\t\tn>>=1;",
+			"\t\ta=a*a%mod;",
+			"\t}",
+			"\tans%=mod;",
+			"\treturn ans;",
+			"}"
+		],
+		"description": "qpow"
+	}
+}

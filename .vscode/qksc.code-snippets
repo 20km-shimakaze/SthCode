@@ -1,0 +1,15 @@
+{
+	"qksc": {
+		"prefix": "qksc",
+		"body": [
+			"inline ll ksc(ll x,ll y){",
+			"\tll res=0;",
+			"\twhile(y){",
+			"\t\tif(y&1)res=(res+x)%mod;",
+			"\t\tx=(x<<1)%mod; y>>=1;",
+			"\t}return res;",
+			"}"
+		],
+		"description": "qksc"
+	}
+}

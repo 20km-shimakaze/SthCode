@@ -2,6 +2,7 @@
 #define ll long long
 using namespace std;
 #define mod 998244353
+#define int long long
 inline ll ksc(ll x,ll y){
 	ll res=0;
 	while(y){
@@ -9,16 +10,16 @@ inline ll ksc(ll x,ll y){
 		x=(x<<1)%mod; y>>=1;
 	}return res;
 }
-ll qpow(ll a,ll n)
+int qpow(ll a,ll n)
 {
 	if(a%mod==0)return 0;
 	ll ans=1;
 	while(n){
 		if(n&1){
-			ans=ksc(ans,a);
+			ans=ans*a%mod;
 		}
 		n>>=1;
-		a=ksc(a,a);
+		a=a*a%mod;
 	}
 	ans%=mod;
 	return ans;
