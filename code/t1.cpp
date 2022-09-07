@@ -1,41 +1,45 @@
-#include <cstdio>
-#include <iostream>
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int ans=0;
-int gcd(int a,int b)
+#define IOS ios::sync_with_stdio(0);cout.tie(0);
+#define int long long
+typedef long long ll;
+typedef pair<int,int> P;
+const int N=2e5+7;
+const int mod=998244353;
+unordered_map<int,int>mp;
+set<int>se;
+int n;
+void solve()
 {
-    if(a<b)swap(a,b);
-    while(b){
-        int t=a%b;
-        a=b;
-        b=t;
-        ans++;
-    }
-    return a;
-}
-int a[200005];
-int main()
-{
-    int n;
     cin>>n;
-    // for(int i=2;i<=n;i++){
-    //     int x;cin>>x;
-    //     a=gcd(a,x);
-    //     cout<<a<<" "<<ans<<endl;
-    // }
+    int ans=0;
     for(int i=1;i<=n;i++){
-        cin>>a[i];
+        int x;cin>>x;
+        se.insert(x);
+        mp[x]++;
     }
-    sort(a+1,a+1+n);
-    int l=1,r=n;
-    while(l<=r){
-        int t=gcd(a[l],a[r]);
-        if(t==1){
-            ans+=r-l-1;
-            break;
-        }
-        r--;
+    while(se.size()>1){
+        int mi=*se.begin();
+        int ma=*se.rbegin();
+        int t=ma%mi;
+        mp[t]++;
+        mp[ma]--;
+        if(!mp[ma])se.erase(ma);
+        //cout<<mp[ma]<<endl;
+        if(t)se.insert(t);
+        ans++;
+        // for(auto i:se)cout<<i<<" ";cout<<endl;
+        //cout<<ma<<" "<<mi<<endl;
     }
+    // int t=*se.begin();
+    // cout<<ans+mp[t]-1<<endl;
     cout<<ans<<endl;
+}
+signed main()
+{
+    //IOS
+    int __=1;
+    //cin >> __;
+    while (__--)
+        solve();
 }
