@@ -1,0 +1,19 @@
+{
+	"POJ": {
+		"prefix": "POJ",
+		"body": [
+			"#include<stdlib.h>",
+			"#include<algorithm>",
+			"#include<iostream>",
+			"#include<cstring>",
+			"#include<string>",
+			"#include<vector>",
+			"#include<bitset>",
+			"#include<queue>",
+			"#include<stack>",
+			"#include<map>",
+			"#include<set>"
+		],
+		"description": "POJ"
+	}
+}

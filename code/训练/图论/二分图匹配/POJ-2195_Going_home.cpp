@@ -74,13 +74,27 @@ int KM()
 void solve()
 {
     while(scanf("%d%d",&n,&m),n||m){
-        
+        cnth=cntp=0;
+        vis.reset();
+		getchar();
         for(int i=1;i<=n;i++){
             for(int j=1;j<=m;j++){
-                cin>>a[i][j];
+                scanf("%c",&s[i][j]);
+				P p;
+				p.first=i,p.second=j;
+                if(s[i][j]=='m')peo[++cntp].x=i,peo[cntp].y=j;
+                if(s[i][j]=='H')hom[++cnth].x=i,hom[cnth].y=j;
+            }
+			getchar();
+        }
+        n=m=cntp;
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                a[i][j]=abs(peo[i].x-hom[j].x)+abs(peo[i].y-hom[j].y);
+                a[i][j]=-a[i][j];
             }
         }
-        printf("%d\n",KM());
+        printf("%d\n",-KM());
     }
 }
 signed main()
