@@ -7,19 +7,27 @@ typedef pair<int,int> P;
 const int N=2e5+7;
 const int INF=0x3f3f3f3f;
 const int mod=998244353;
-class t
-{
-    int a=1,b=2;
-    public : void show();
-};
-void t::show()
-{
-    cout<<a<<" "<<b<<endl;
-}
+map<int,int>mp;
 void solve()
 {
-    t a;
-    a.show();
+    int m,n;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        int x;
+        cin>>x;
+        mp[x]++;
+    }
+    int fl=0;
+    for(int i=1;i<=m;i++){
+        int x;
+        cin>>x;
+        if(mp[x])mp[x]--;
+        else{
+            fl=1;
+            //cout<<x<<endl;
+        }
+    }
+    cout<<(fl==0?"Yes":"No")<<endl;
 }
 signed main()
 {

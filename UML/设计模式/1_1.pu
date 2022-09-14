@@ -1,0 +1,36 @@
+.@startuml
+
+class Pen {
+  +color:Color
+  +size:Size
+  +draw()
+}
+
+interface Color {
+	+getColor():String
+}
+
+interface Size {
+	+getSize():String
+}
+
+class BlackColor{
+	+getColor():String
+}
+class RedColor{
+    +getColor():String
+}
+class LargeSize{
+    +getSize():String
+}
+class SmallSize{
+    +getSize():String
+}
+
+Size <|.. LargeSize
+Size <|.. SmallSize
+Color <|.. BlackColor
+Color <|.. RedColor
+Pen --|> Color
+Pen --|> Size
+@enduml
