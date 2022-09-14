@@ -45,7 +45,7 @@ void solve()
             }
             if(it==se.end())cout<<-1<<endl;
             else if(!fl)cout<<*it<<endl;
-        }
+        } 
     }
 }
 signed main()
