@@ -9,7 +9,11 @@ const int INF=0x3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-    cout<<__cplusplus<<endl;
+    int an1=0,an2=0;
+    int a,b,c,d;
+    cin>>a>>b>>c>>d;
+    an1=min(a,c)*min(b,d);
+    cout<<an1<<endl;
 }
 signed main()
 {

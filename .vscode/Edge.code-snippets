@@ -5,15 +5,15 @@
 			"struct Edge",
 			"{",
 			"\tint to,next,w;",
-			"}edge[N];",
+			"}e[N];",
 			"int head[N],cnt;",
 			"void add(int from,int to,int w)",
 			"{",
-			"\tedge[++cnt].w=w;",
-			"\tedge[cnt].to=to;",
-			"\tedge[cnt].next=head[from];",
+			"\te[++cnt].w=w;",
+			"\te[cnt].to=to;",
+			"\te[cnt].next=head[from];",
 			"\thead[from]=cnt;",
-			"}"
+			"}$0"
 		],
 		"description": "Edge"
 	}

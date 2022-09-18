@@ -1,3 +1,6 @@
+/*
+把所有能减少值的点加入队列，用数组维护避免队列中点重复
+*/
 #include <bits/stdc++.h>
 using namespace std;
 #define IOS ios::sync_with_stdio(0);cout.tie(0);

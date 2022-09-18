@@ -1,94 +1,52 @@
-#include<stdio.h>
-#include<string.h>
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
-int a[55][55];
-int w[55*55][55*55];
-int lx[55*55];
-int ly[55*55];
-int vx[55*55];
-int vy[55*55];
-int match[55*55];
-int n,m,low;
-int find(int u)
-{
-    vx[u]=1;
-    for(int i=0;i<n*m;i++)
-    {
-        if(vy[i]==1)continue;
-        int tmpp=lx[u]+ly[i]-w[u][i];
-        if(tmpp==0)
-        {
-            vy[i]=1;
-            if(match[i]==-1||find(match[i]))
-            {
-                match[i]=u;
-                return 1;
-            }
-        }
-        else if(tmpp<low)low=tmpp;
-    }
-    return 0;
+using ll=long long;
+using pii=pair<int,int>;
+const int INF=1e9;
+const int maxn=1e6;
+struct Edge{int to,next,w;}edge[maxn];
+int head[maxn],cnt;
+int n,m;
+void add(int from,int to,int w){
+	edge[++cnt].w=w;
+	edge[cnt].to=to;
+	edge[cnt].next=head[from];
+	head[from]=cnt;
 }
-void KM()
+bool spfa(int s)
 {
-    memset(match,-1,sizeof(match));
-    memset(lx,0,sizeof(lx));
-    memset(ly,0,sizeof(ly));
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n*m;j++)
-        {
-            lx[i]=max(lx[i],w[i][j]);
-        }
-    }
-    for(int i=0;i<n;i++)
-    {
-        while(1)
-        {
-            memset(vx,0,sizeof(vx));
-            memset(vy,0,sizeof(vy));
-            low=0x3f3f3f3f;
-            if(find(i))break;
-            for(int j=0;j<n*m;j++)
-            {
-                if(vx[j])lx[j]-=low;
-                if(vy[j])ly[j]+=low;
-            }
-        }
-    }
-    double sum=0;
-    for(int i=0;i<n*m;i++)
-    {
-        if(match[i]==-1)continue;
-        sum+=w[match[i]][i];
-    }
-    printf("%.6f\n",-sum/n);
+	vector<int>dis(n+10,INF);
+	vector<int>in(n+10);
+	bitset<maxn>vis;
+	queue<int>q;
+	q.push(s);
+	vis[s]=0;
+    dis[s]=0;
+	while(!q.empty()){
+		int x=q.front();q.pop();
+		vis[x]=0;
+		in[x]++;
+		if(in[x]>n)return 0;//in[x]
+		for(int i=head[x];i;i=edge[i].next){
+			int y=edge[i].to;
+			if(dis[y]>dis[x]+edge[i].w){
+				dis[y]=dis[x]+edge[i].w;
+				if(!vis[y])vis[y]=1,q.push(y);
+			}
+		}
+	}
+	for(int i=1;i<=n;i++)
+		cout<<dis[i]<<" ";
+	return 1;
 }
 int main()
 {
-    int t;
-    scanf("%d",&t);
-    while(t--)
-    {
-        scanf("%d%d",&n,&m);
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                scanf("%d",&a[i][j]);
-            }
-        }
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                for(int k=0;k<n;k++)
-                {
-                    w[i][j+k*m]=-(a[i][j]*(k+1));
-                }
-            }
-        }
-        KM();
-    }
+    int s;
+	cin>>n>>m>>s;
+	for(int i=1;i<=m;i++){
+		int x,y,z;
+		cin>>x>>y>>z;
+		add(x,y,z);
+	}
+	spfa(s);
 }

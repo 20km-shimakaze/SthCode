@@ -1,45 +1,25 @@
-#include <cstdio>
-#include <set>
+#include<bits/stdc++.h>
 using namespace std;
-
-int main()
+void solve()
 {
-	multiset<long long> s;
-	int q;
-	scanf("%d", &q);
-	while(q--)
-	{
-		int op;
-		long long x;
-		scanf("%d%lld", &op, &x);
-		if(op == 1) s.insert(x);
-		else
-		{
-			int k;
-			scanf("%d", &k);
-			if(op == 2)
-			{
-				bool bad = false;
-				auto it = s.upper_bound(x);
-				for(; k--; --it)
-					if(it == s.begin())
-					{
-						bad = true;
-						break;
-					}
-				if(bad) puts("-1");
-				else printf("%lld\n", *it);
-			}
-			else
-			{
-				auto it = s.lower_bound(x);
-				for(; --k; ++it)
-					if(it == s.end())
-						break;
-				if(it == s.end()) puts("-1");
-				else printf("%lld\n", *it);
-			}
-		}
+	int n, q;
+	cin >> n >> q;
+	vector<vector<int>>graph(n + 1);
+	int u, v;
+	for (int i = 1; i <= q; ++i) {
+		cin >> u >> v;
+		graph[u - 1].push_back(v);
+		graph[v].push_back(u - 1);
 	}
-	return 0;
+	vector<bool>vis(n + 1, false);
+	auto dfs = [&](auto dfs, int u) {
+		if (vis[u]) return;
+		vis[u] = true;
+		for (auto v : graph[u]) dfs(dfs, v);
+		return;
+	};
+	dfs(dfs, 0);
+	if (vis[n]) cout << "Yes" << '\n';
+	else cout << "No" << '\n';
+	return;
 }

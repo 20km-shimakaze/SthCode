@@ -7,9 +7,11 @@ typedef pair<int,int> P;
 const int N=2e5+7;
 const int INF=0x3f3f3f3f;
 const int mod=998244353;
+double x;
 void solve()
 {
-    cout<<__cplusplus<<endl;
+    cin>>x;
+    printf("%lf",(sqrt(x*(x+12800000))));
 }
 signed main()
 {

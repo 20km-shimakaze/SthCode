@@ -7,9 +7,18 @@ typedef pair<int,int> P;
 const int N=2e5+7;
 const int INF=0x3f3f3f3f;
 const int mod=998244353;
+int x;
 void solve()
 {
-    cout<<__cplusplus<<endl;
+    cin>>x;
+    int t=x%10;
+    x/=10;
+    if(t){
+        if(t<0){
+            x-=1;
+        }
+    }
+    cout<<x<<endl;
 }
 signed main()
 {
