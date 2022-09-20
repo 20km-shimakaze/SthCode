@@ -4,7 +4,7 @@
 #include<bitset>
 using namespace std;
 #define IOS ios::sync_with_stdio(0);cout.tie(0);
-//#define int long long
+#define int long long
 typedef long long ll;
 typedef pair<int,int> P;
 const int N=275;
