@@ -1,0 +1,44 @@
+@startuml 1_3
+
+class Arthmetic
+{
+	+getResult(numA:float,numB:float):float
+}
+
+class Add
+{
+  +getResult(numA:float,numB:float):float
+}
+
+class Del
+{
+  +getResult(numA:float,numB:float):float
+}
+
+class Mul
+{
+  +getResult(numA:float,numB:float):float
+}
+
+class Div
+{
+  +getResult(numA:float,numB:float):float
+}
+
+class ArthmeticFactory
+{
+  +getMethod(str:String):Arithmetic
+}
+
+ArthmeticFactory ..>Add
+ArthmeticFactory ..>Div
+ArthmeticFactory ..>Mul
+ArthmeticFactory ..>Del
+
+Add --|>Arthmetic
+Del --|>Arthmetic
+Mul --|>Arthmetic
+Div --|>Arthmetic
+
+
+@enduml

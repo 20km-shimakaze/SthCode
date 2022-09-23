@@ -1,0 +1,28 @@
+@startuml
+
+actor "顾客" as act1
+actor "系统" as act2
+
+(进货记账) as jin
+(销售登记) as xiao
+(盘存功能) as cun
+(提示进货) as tishi
+(折扣) as zhe
+(商品丢失损耗) as sun
+(计算毛利) as mao
+(购物) as gou
+
+
+act2 -- jin
+act2 -- xiao
+act2 -- cun
+sun ..> cun :《include》
+mao ..> cun :《include》
+tishi ..> cun : 《extend》
+
+
+act1 -- gou
+zhe ..> gou :《include》VIP等级
+
+
+@enduml

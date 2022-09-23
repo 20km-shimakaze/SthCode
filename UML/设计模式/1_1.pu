@@ -1,9 +1,9 @@
-.@startuml
+@startuml 1_1
 
 class Pen {
   +color:Color
   +size:Size
-  +draw()
+  +draw():void
 }
 
 interface Color {

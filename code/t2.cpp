@@ -4,15 +4,15 @@ using namespace std;
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-const int N=2e5+7;
+const int N=2e5+40000;
 const int INF=0x3f3f3f3f;
 const int mod=998244353;
-int n,m,s;
+int n,m;
 struct Edge
 {
     int to,next,w;
 }e[N];
-int head[N],cnt;
+int head[N],cnt=1;
 void add(int from,int to,int w)
 {
     e[++cnt].w=w;
@@ -20,48 +20,90 @@ void add(int from,int to,int w)
     e[cnt].next=head[from];
     head[from]=cnt;
 }
-int dis[N],vis[N];
-void spfa()
+int dep[N];
+int tot;
+void init()
 {
-    queue<int>q;
-    memset(dis+1,INF,sizeof(int)*n);
-    memset(vis+1,0,sizeof(int)*n);
-    q.push(s);
-    dis[s]=0;
-    vis[s]=1;
-    while(q.size()){
-        int x=q.front();
-        q.pop();
-        vis[x]=0;
-        for(int i=head[x];i;i=e[i].next){
-            int y=e[i].to;
-            int w=e[i].w;
-            if(dis[y]>dis[x]+w){
-                dis[y]=dis[x]+w;
-                if(!vis[y]){
-                    vis[y]=1;
-                    q.push(y);
-                }
-            }
-        }
-    }
+    cnt=1;
+    memset(head+1,0,sizeof(int)*n);
 }
+bool bfs(int s,int t)
+{
+	memset(dep+1,0,sizeof(int)*tot);
+	queue<int>q;
+	dep[s]=1;
+	q.push(s);
+	while(!q.empty())
+	{
+		int x=q.front();q.pop();
+		if(x==t)return true;
+		for(int i=head[x];i;i=e[i].next)
+		{
+			int y=e[i].to;
+			int w=e[i].w;
+			if(dep[y]==0&&w>0)
+				q.push(y),dep[y]=dep[x]+1;
+		}
+	}
+	return false;
+}
+int dfs(int x,int flow,int t)
+{
+	if(x==t)return flow;
+	int out=flow;
+	for(int i=head[x];i;i=e[i].next)
+	{
+		int y=e[i].to;
+		int w=e[i].w;
+		if(w!=0&&dep[y]==dep[x]+1)
+		{
+			int tmp=dfs(y,min(out,w),t);
+			e[i].w-=tmp;
+			e[i^1].w+=tmp;
+			out-=tmp;
+			if(!out)break;
+		}
+	}
+	if(out==flow)dep[x]=0;
+	return flow-out;
+}
+int DINIC(int s,int t)
+{
+	int ans=0;
+	while(bfs(s,t))
+		ans+=dfs(s,INF,t);
+	return ans;
+}
+int a[N],b[N];
 void solve()
 {
-    cin>>n>>m>>s;
-    for(int i=1;i<=m;i++){
-        int u,v,w;
-        cin>>u>>v>>w;
-        add(u,v,w);
-    }
-    spfa();
+    cin>>n>>m;
+    int s=++tot;
+    int t=++tot;
     for(int i=1;i<=n;i++){
-        cout<<dis[i]<<" ";
+        a[i]=++tot;
+        add(s,a[i],1);
+        add(a[i],s,0);
     }
+    for(int i=1;i<=m;i++){
+        b[i]=++tot;
+        add(b[i],t,1);
+        add(t,b[i],0);
+    }
+    for(int i=1;i<=n;i++){
+        int num;cin>>num;
+        for(int j=1;j<=num;j++){
+            int x;cin>>x;
+            add(a[i],b[x],1);
+            add(b[x],a[i],0);
+        }
+    }
+    int ans=DINIC(s,t);
+    cout<<m-ans<<endl;
 }
 signed main()
 {
-    IOS
+    //IOS
     int __=1;
     //cin >> __;
     while (__--)

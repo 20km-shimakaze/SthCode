@@ -1,0 +1,35 @@
+@startuml 1_2
+
+class Drive
+{
+	+name:String
+  +driving(Car car):void
+}
+
+class Car
+{
+  +driving():String
+}
+
+class BWM
+{
+  +driving():String
+}
+
+class Benz
+{
+  +driving():String
+}
+
+class Daz
+{
+  +driving():String
+}
+
+Drive --|> Car
+
+BWM ..|> Car
+Daz ..|> Car
+Benz ..|> Car
+
+@enduml
