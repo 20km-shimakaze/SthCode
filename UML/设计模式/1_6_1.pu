@@ -1,0 +1,44 @@
+@startuml 1_6_1
+
+class Customer
+{
+  - name:String
+  - age:int
+  - address:Address
+  + setName(String name):void
+  + getName():String
+  + setAddress(Address address):void
+  + getAddress():Address
+  + setAge(int age):void
+  + getAge():int
+  + clone():Customer
+}
+
+class Address
+{
+  - name:String
+  - post:String
+  + setName(String name):void
+  + getName():String
+  + setPost(String post):void
+  + getPost():String
+}
+
+
+class Object
+{
+  + clone():Object
+}
+
+
+class Cloneable
+{
+  
+}
+
+Customer o--> Address :"attachment"
+Customer --|> Object
+Customer ..|> Cloneable
+
+
+@enduml

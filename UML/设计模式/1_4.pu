@@ -24,11 +24,43 @@ class Div
   +getResult(numA:float,numB:float):float
 }
 
+class AddFactory
+{
+  +getMethod(str:String):Arithmetic
+}
+
+class DelFactory
+{
+  +getMethod(str:String):Arithmetic
+}
+
+class MulFactory
+{
+  +getMethod(str:String):Arithmetic
+}
+
+class DivFactory
+{
+  +getMethod(str:String):Arithmetic
+}
+
+class Factory
+{
+  
+}
 Arthmetic <|-- Div
 Arthmetic <|-- Del
 Arthmetic <|-- Add
 Arthmetic <|-- Mul
 
+AddFactory ..> Add
+DelFactory ..> Del
+MulFactory ..> Mul
+DivFactory ..> Div
 
+Factory <|-- AddFactory
+Factory <|-- DelFactory
+Factory <|-- MulFactory
+Factory <|-- DivFactory
 
 @enduml

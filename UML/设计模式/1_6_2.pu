@@ -1,0 +1,38 @@
+@startuml
+
+interface Serializable
+{
+  
+}
+
+class Customer
+{
+  - name:String
+  - age:int
+  - address:Address
+  + setName(String name):void
+  + getName():String
+  + setAddress(Address address):void
+  + getAddress():Address
+  + setAge(int age):void
+  + getAge():int
+  + deepClone():Customer
+}
+
+class Address
+{
+  - name:String
+  - post:String
+  + setName(String name):void
+  + getName():String
+  + setPost(String post):void
+  + getPost():String
+}
+
+
+Customer o--> Address :"attachment"
+Customer ..|> Serializable
+Address ..|> Serializable
+
+
+@enduml
