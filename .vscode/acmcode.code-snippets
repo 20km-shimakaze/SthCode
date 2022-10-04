@@ -49,12 +49,12 @@
 			"struct Edge{",
 			"\tint to,next,w;",
 			"}e[N];",
-			"int head[N],cnt=1;",
+			"int head[N],cnt=1,tot;",
 			"int dep[N];",
 			"int n,m,s,t;",
 			"void init(){",
 			"\tcnt=1;",
-			"\tmemset(head+1,0,sizeof(int)*n);",
+			"\tmemset(head+1,0,sizeof(int)*tot);",
 			"}",
 			"void add(int from,int to,int w)",
 			"{",
@@ -65,7 +65,7 @@
 			"}",
 			"bool bfs(int s,int t)",
 			"{",
-			"\tmemset(dep+1,0,sizeof(int)*n);",
+			"\tmemset(dep+1,0,sizeof(int)*tot);",
 			"\tqueue<int>q;",
 			"\tdep[s]=1;",
 			"\tq.push(s);",
@@ -188,5 +188,16 @@
 			"}"
 		],
 		"description": "qwrite"
+	},
+	"add_ed": {
+		"prefix": "add_ed",
+		"body": [
+			"void add_ed(int x,int y,int w,int rw=0)",
+			"{",
+			"\tadd(x,y,w);",
+			"\tadd(y,x,rw);",
+			"}"
+		],
+		"description": "add_ed"
 	}
 }
