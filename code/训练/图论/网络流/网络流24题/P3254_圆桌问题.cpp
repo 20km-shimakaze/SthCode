@@ -85,7 +85,7 @@ void solve()
 	t=++tot;
 	int sum=0;
 	for(int i=1;i<=m;i++)a[i]=++tot;
-	for(int i=1;i<=n;i++)b[i]=++tot;
+	for(int i=1;i<=n;i++)b[i]=++tot,rb[tot]=i;
 	for(int i=1;i<=m;i++)cin>>r[i],sum+=r[i];
 	for(int i=1;i<=n;i++)cin>>c[i];
 	for(int i=1;i<=m;i++)add_ed(s,a[i],r[i]);
@@ -101,7 +101,18 @@ void solve()
 		return;
 	}
 	else cout<<1<<endl;
-	for(int )
+	for(int i=1;i<=m;i++){
+		int x=a[i];
+		for(int j=head[x];j;j=e[j].next){
+			int y=e[j].to;
+			int w=e[j].w;
+			if(!w){
+				cout<<rb[y]<<" ";
+			}
+			// cout<<i<<" "<<rb[y]<<" "<<w<<endl;
+		}
+		cout<<endl;
+	}
 }
 signed main()
 {

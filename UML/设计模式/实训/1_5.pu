@@ -1,0 +1,67 @@
+@startuml 1_5
+
+interface Factory
+{
+  createTV():TV
+  createAir():Air
+}
+
+class HairFactory
+{
+  createTV():TV
+  createAir():Air
+}
+
+class TCLFactory
+{
+  createTV():TV
+  createAir():Air
+}
+
+class HairTV
+{
+  play():void
+}
+
+class HairAir
+{
+  work():void
+}
+
+class TCLTV
+{
+  play():void
+}
+
+class TCLAir
+{
+  work():void
+}
+
+abstract TV
+{
+  play():void
+}
+
+abstract Air
+{
+  work():void
+}
+
+
+TCLFactory ..|> Factory
+HairFactory ..|> Factory
+
+TCLFactory ..> TCLTV
+TCLFactory ..> TCLAir
+
+HairFactory ..> HairTV
+HairFactory ..> HairAir
+
+HairTV --|> TV
+TCLTV --|> TV
+
+HairAir --|> Air
+TCLAir --|> Air
+
+@enduml
