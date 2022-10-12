@@ -7,31 +7,30 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f;
 const int mod=998244353;
-int n;
 int a[N];
+int n,m,t;
+map<int,int>mp;
 void solve()
 {
-	while(cin>>n){
-		set<int>se;
-		for(int i=1;i<=n;i++){
-			cin>>a[i];
-			se.insert(a[i]);
-		}
-		int ans=0;
-		for(int i=1;i<=n;i++){
-			for(int j=1;j<i;j++){
-				if(se.find(2*a[i]-a[j])!=se.end()){
-					ans++;
-					break;
-				}
-			}
-		}
-		cout<<ans<<endl;
+	cin>>n>>m>>t;
+	for(int i=1;i<n;i++)cin>>a[i];
+	for(int i=1;i<=m;i++){
+		int x,y;
+		cin>>x>>y;
+		mp[x]+=y;
 	}
+	int i;
+	for(i=1;i<n;i++){
+		t+=mp[i];
+		if(t<=a[i])break;
+		t-=a[i];
+	}
+	if(i==n)cout<<"Yes"<<endl;
+	else cout<<"No"<<endl;
 }
 signed main()
 {
-	IOS
+	//IOS
 	int __=1;
 	//cin >> __;
 	while (__--)
