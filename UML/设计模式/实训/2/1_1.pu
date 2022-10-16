@@ -1,0 +1,36 @@
+@startuml 1_1
+
+interface DataOpreation
+{
+  + sort(int []):void
+  + search(int[],int):int
+}
+
+class BinarySearch
+{
+  + binarySearch(int[],int):void
+}
+
+class QuickSort
+{
+  + quickSort(int[]):void
+}
+
+class Adapter
+{
+  + sort(int []):void
+  + search(int[],int):int
+}
+
+note "super.quickSort(int[]);\nsuper.binarySearch(int[],int);" as N1
+
+Client ..> DataOpreation
+Adapter ..|> DataOpreation
+Adapter --|> QuickSort
+Adapter --|> BinarySearch
+N1 .. Adapter
+
+
+
+
+@enduml

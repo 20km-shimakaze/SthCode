@@ -1,40 +1,68 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-#define IOS ios::sync_with_stdio(0);cout.tie(0);
-#define int long long
-typedef long long ll;
-typedef pair<int,int> P;
-const int N=1e6+7;
-const int INF=0x3f3f3f3f;
-const int mod=998244353;
-int l1,l2,l3,t1,t2,t3;
-int T;
-const double pi=acos(-1);
-void solve()
+const int maxn=1e6+7;
+const int mod=1e9+7;
+int a,b,k;
+int bbegin;
+bool flag;
+vector<int> v;
+void dfs(int now)
 {
-	cin>>T>>l1>>l2>>l3>>t1>>t2>>t3;
-	double x1,x2,x3,y1,y2,y3;
-	double T1=2*pi*((T%t1)*1.0/t1);
-	y1=sin(T1)*l1;
-	x1=cos(T1)*l1;
-	// printf("%6lf %6lf\n",x1,y1);
-	double T2=2*pi*((T%t2)*1.0/t2);
-	y2=sin(T2)*l2;
-	x2=cos(T2)*l2;
-	// printf("%6lf %6lf\n",x2,y2);
-	double T3=2*pi*((T%t3)*1.0/t3);
-	y3=sin(T3)*l3;
-	x3=cos(T3)*l3;
-	// printf("%6lf %6lf\n",x3,y3);
-	double ansx=x1+x2+x3;
-	double ansy=y1+y2+y3;
-	printf("%6lf %6lf\n",ansy,ansx);
+	if(flag)
+		return;
+	if(now==b)
+	{
+		printf("< %d > ",bbegin);
+		for(auto i:v)
+			printf("%d ",i);
+		printf("\n");
+		
+		k--;
+		if(k==0)
+			flag=1;
+		return;
+	}
+	if(flag)
+		return;
+	if(now+1<=b)
+	{
+		v.push_back(now+1);
+		dfs(now+1);
+		v.pop_back();
+	}
+	if(flag)
+		return;
+	if(now+2<=b)
+	{
+		v.push_back(now+2);
+		dfs(now+2);
+		v.pop_back();
+	}
 }
+int ans[maxn];
 signed main()
 {
-	//IOS
-	int __=1;
-	//cin >> __;
-	while (__--)
-		solve();
+	scanf("%d%d%d",&a,&b,&k);
+	
+	ans[0]=ans[1]=1;
+	for(int i=2;i<=b-a;i++)
+		ans[i]=(ans[i-1]+ans[i-2])%(1000000007);
+	
+	printf("%d\n",ans[b-a]);
+	
+	for(int i=a;i<=b;i++)
+		printf("%d ",i);
+	printf("\n");
+	
+	k--;
+	bbegin=b-2;
+	while(k>0&&!flag&&bbegin>=a)
+	{
+		v.push_back(bbegin+2);
+		dfs(bbegin+2);
+		v.pop_back();
+
+		bbegin--;
+	}
+	return 0;
 }

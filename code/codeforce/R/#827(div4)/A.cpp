@@ -9,16 +9,19 @@ const int INF=0x3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-    double n;
-    cin>>n;
-    double ans=n*950/(3E-23);
-    printf("%E\n",ans);
+	vector<int>v;
+	for(int i=1;i<=3;i++){
+		int x;cin>>x;
+		v.push_back(x);
+	}
+	sort(v.begin(),v.end());
+	cout<<(v[0]+v[1]==v[2]?"YES":"NO")<<endl;
 }
 signed main()
 {
-    //IOS
-    int __=1;
-    //cin >> __;
-    while (__--)
-        solve();
+	//IOS
+	int __=1;
+	cin >> __;
+	while (__--)
+		solve();
 }

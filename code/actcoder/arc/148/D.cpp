@@ -8,8 +8,8 @@ const int N=2e5+7;
 const int INF=0x3f3f3f3f;
 const int mod=998244353;
 int n,m;
-vector<int>v;
-unordered_map<int,int>mp;
+vector<P>v;
+map<int,int>mp,mmp;
 void solve()
 {
     cin>>n>>m;
@@ -19,10 +19,22 @@ void solve()
         x%=m;
         mp[x]++;
     }
-    for(auto it=mp.begin();it!=mp.end();it++){
-        if((it->second)&1)v.push_back(it->first);
+    for(auto[x,val]:mp){
+        if(val%2){
+            mmp[x]+=val%2;
+        }
     }
-    if(v.size())cout<<"Alice"<<endl;
+    int fl=0;
+    int sum=0;
+    if(m%2==0){
+        for(auto[x,val]:mmp){
+            if(mmp[(x+m/2)%m]!=val)fl=1;
+            sum++;
+        }
+        if(sum%4)fl=1;
+    }
+    else if(mmp.size())fl=1;
+    if(fl)cout<<"Alice"<<endl;
     else cout<<"Bob"<<endl;
 }
 signed main()
