@@ -12,7 +12,7 @@ void solve()
 {
 	for(int i=0;i<8;i++)cin>>s[i];
 	for(int i=0;i<8;i++){
-		int r=0,b=0;
+		int r=0,b=1;
 		for(int j=0;j<8;j++){
 			if(s[i][j]=='.')r=1,b=1;
 			if(s[i][j]=='R')b=1;
@@ -28,8 +28,8 @@ void solve()
 		}
 	}
 	for(int i=0;i<8;i++){
-		int r=0,b=0;
-		for(int j=0;j<8;j++){
+		int r=1,b=0;
+		for(int j=0;j<8;j++){	
 			if(s[j][i]=='.')r=1,b=1;
 			if(s[j][i]=='R')b=1;
 			if(s[j][i]=='B')r=1;
