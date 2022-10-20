@@ -26,7 +26,7 @@ class Daz
   +driving():String
 }
 
-Drive --|> Car
+Drive ..> Car
 
 BWM ..|> Car
 Daz ..|> Car

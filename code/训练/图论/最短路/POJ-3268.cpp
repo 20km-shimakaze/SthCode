@@ -21,10 +21,8 @@ const int mod=998244353;
 struct poi
 {
 	int id,dis;
-	poi(int id=0,int dis=0){
-		this->dis=dis;
-		this->id=id;
-	}
+	poi()=default;
+	poi(int _id,int _dis):id(_id),dis(_dis){}
 	friend bool operator<(poi a,poi b){
 		return a.dis>b.dis;
 	}
@@ -35,11 +33,6 @@ int n,m,x;
 struct node
 {
 	int x,y,w;
-	// node(int x,int y,int w){
-	// 	this->x=x;
-	// 	this->w=w;
-	// 	this->y=y;
-	// }
 };
 node s[N];
 struct Edge

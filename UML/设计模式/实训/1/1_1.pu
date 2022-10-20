@@ -31,6 +31,6 @@ Size <|.. LargeSize
 Size <|.. SmallSize
 Color <|.. BlackColor
 Color <|.. RedColor
-Pen --|> Color
-Pen --|> Size
+Pen ..> Color
+Pen ..> Size
 @enduml
