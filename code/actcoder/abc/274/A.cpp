@@ -9,18 +9,9 @@ const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-	int n;
-	string s;
-	cin>>n>>s;
-	int ans=0,odd=0;
-	for(int i=0;i<n-2;i++){
-		if(s.substr(i,3)=="ARC"){
-			ans++;
-			int l=i-1,r=i+3;
-			while(l>=0&&r<n&&s[l]=='A'&&s[r]=='C')l--,r++,odd++;
-		}
-	}
-	cout<<ans+min(odd,ans)<<endl;
+	int a,b;
+	cin>>a>>b;
+	printf("%.3lf",1.0*b/a);
 }
 signed main()
 {

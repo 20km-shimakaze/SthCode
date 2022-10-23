@@ -55,6 +55,7 @@ signed main()
 	FFT(p,1);
 	for(int i=0;i<n;i++)f[i]=f[i]*p[i];
 	FFT(f,-1);
-	puts("");
+	// cout<<n<<" "<<m<<endl;
+	// puts("");
 	for(int i=0;i<=m;i++)printf("%d ",(int)(f[i].x/n+0.5));
 }

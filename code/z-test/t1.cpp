@@ -1,95 +1,100 @@
-#include<stdlib.h>
-#include<algorithm>
-#include<iostream>
-#include<cstring>
-#include<string>
-#include<vector>
-#include<bitset>
-#include<queue>
-#include<stack>
-#include<map>
-#include<set>
-#include<cmath>
+#include<bits/stdc++.h>
 using namespace std;
-#define IOS ios::sync_with_stdio(0);cout.tie(0);
-// #define int long long
-typedef long long ll;
-typedef pair<int,int> P;
+#define int long long
+const int mod=1000000007;
 const int N=1e6+7;
-const int INF=0x3f3f3f3f;
-const int mod=998244353;
-struct poi
-{
-	int id,dis;
-	friend bool operator<(poi a,poi b){
-		return a.dis>b.dis;
-	}
-};
-struct Edge
-{
-	int to,next,w;
-}e[N];
-int head[N],cnt;
-void add(int from,int to,int w)
-{
-	e[++cnt].w=w;
-	e[cnt].to=to;
-	e[cnt].next=head[from];
-	head[from]=cnt;
-}
-int n,m;
-int dis[N];
+int fac[N];
 void init()
 {
+    fac[0]=1;
+    for(int i=1;i<=N;i++){
+        fac[i]=fac[i-1]*i%mod;
+    }
+}
+int qpow(int a,int b)
+{
+    int res=1;
+    while(b)
+    {
+        if(b&1)
+            res=res*a%mod;
+        a=a*a%mod;
+        b>>=1;
+    }
+    return res;
+}
+int inv(int z)
+{
+    return qpow(z,mod-2);
+}
+int C(int n,int m)
+{
+    if(n<m) return 0;
+    int res=1;
+    for(int i=1;i<=m;i++)
+    {
+        res*=((n-m+i)%mod)*qpow(i,mod-2)%mod;
+        res%=mod;
+    }
+    return res;
+}
+// int C(int n,int m)
+// {
+//     if(m>n)return 0;
+//     return fac[n]*inv(fac[m])%mod*inv(fac[n-m])%mod;
+// }
+int A(int n,int m)
+{
+    if(m>n)return 0;
+    return fac[n]*inv(fac[n-m])%mod;
+}
+int Lucas(int n,int m)
+{
+    if(m==0) return 1;
+    return (Lucas(n/mod,m/mod)*C(n%mod,m%mod))%mod;
+}
+/*
+int inv[N];
+void init_inv(int n)
+{
+	inv[1]=1;
+	for(int i=2;i<=n;i++){
+		inv[i]=(mod-mod/i)*inv[mod%i]%mod;
+	}
+}
+int C(int n,int m)//��Ҫ�ȴ���inv,��Χm
+{
+	int s=1;
+	for(int i=0;i<m;i++){
+		s=s*(n-i)%mod*inv[i+1]%mod;
+	}
+	return s;
+}
+*/
+/*
+//��ΧԤ�����׳˺���Ԫ
+int fac[N],inv[N];
+void init(int n)
+{
+	inv[0]=fac[0]=1;
 	for(int i=1;i<=n;i++){
-		dis[i]=INF;
+		inv[i]=inv[i-1]*qpow(i,mod-2)%mod;
+	}
+	for(int i=1;i<=n;i++){
+		fac[i]=(fac[i-1]*i)%mod;
 	}
 }
-void dij(int s)
+int C(int n,int m)
 {
-	priority_queue<poi>q;
-	poi a,b;
-	bitset<30004>vis;
-	init();
-	a.dis=0;
-	a.id=s;
-	dis[s]=0;
-	q.push(a);
-	while(q.size()){
-		a=q.top();
-		q.pop();
-		int x=a.id;
-		if(vis[x])continue;
-		vis[x]=1;
-		for(int i=head[x];i;i=e[i].next){
-			int y=e[i].to;
-			int w=e[i].w;
-			if(dis[y]>dis[x]+w){
-				dis[y]=dis[x]+w;
-				b.dis=dis[y];
-				b.id=y;
-				q.push(b);
-			}
-		}
-	}
+    if(m>n)return 0;
+    return fac[n]*inv[m]%mod*inv[n-m]%mod;
 }
-void solve()
-{
-	cin>>n>>m;
-	for(int i=1;i<=m;i++){
-		int x,y,w;
-		cin>>x>>y>>w;
-		add(x,y,w);
-	}
-	int ans=0;
-	dij(1);
-	cout<<dis[n]<<endl;
-}
+*/
 signed main()
 {
-	IOS
-	int __=1;
-	//cin >> __;
-	while (__--)
-		solve();
+    int n;
+    cin>>n;
+    // cout<<(Lucas(n,4) + Lucas(n-1,2))%mod<<endl;
+	cout<<C(7,4);
+    return 0;
 }
