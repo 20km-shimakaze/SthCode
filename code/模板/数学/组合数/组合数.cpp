@@ -62,7 +62,7 @@ void init_inv(int n)
 		inv[i]=(mod-mod/i)*inv[mod%i]%mod;
 	}
 }
-int C(int n,int m)//ÐèÒªÏÈ´¦Àíinv,·¶Î§m
+int C(int n,int m)//ï¿½ï¿½Òªï¿½È´ï¿½ï¿½ï¿½inv,ï¿½ï¿½Î§m
 {
 	int s=1;
 	for(int i=0;i<m;i++){
@@ -72,7 +72,7 @@ int C(int n,int m)//ÐèÒªÏÈ´¦Àíinv,·¶Î§m
 }
 */
 /*
-//´ó·¶Î§Ô¤´¦Àí½×³ËºÍÄæÔª
+//ï¿½ï¿½Î§Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½×³Ëºï¿½ï¿½ï¿½Ôª
 int fac[N],inv[N];
 void init(int n)
 {
@@ -94,6 +94,6 @@ signed main()
 {
     int n;
     cin>>n;
-    cout<<(Lucas(n,4) + Lucas(n-1,2))%mod<<endl;
+    // cout<<(Lucas(n,4) + Lucas(n-1,2))%mod<<endl;
     return 0;
 }
