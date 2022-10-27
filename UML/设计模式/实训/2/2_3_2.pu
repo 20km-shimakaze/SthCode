@@ -1,0 +1,54 @@
+@startuml 2_3_2
+
+abstract class AbstractEncryptFacade
+{
+	+ fileEncrypt(String fileNameSrc,String filrNameDes):void
+}
+
+class EncryptFacade
+{
+	- reader:FileReader
+	- cipher:CipherMachine
+	- writer:FileWriter
+	+ EncryptFacade()
+	+ fileEncrypt(String fileNameSrc,String filrNameDes):void
+}
+
+class NewEncryptFacade
+{
+	- reader:FileReader
+	- cipher:NewCipherMachine
+	- writer:FileWriter
+	+ NewEncryptFacade()
+	+ fileEncrypt(String fileNameSrc,String filrNameDes):void
+}
+
+class FileReader
+{
+	+ read(String fileNameSrc):String
+}
+
+class FileWriter
+{
+	+ writer(String encryptText,String fileNameDes):void
+}
+
+class CipherMachine
+{
+	+ encrypt(String plainText):String
+}
+
+class NewCipherMachine
+{
+	+ encrypt(String plainText):String
+}
+
+EncryptFacade --|> AbstractEncryptFacade
+NewEncryptFacade  --|> AbstractEncryptFacade
+EncryptFacade --> CipherMachine
+EncryptFacade --> FileWriter
+EncryptFacade --> FileReader
+NewEncryptFacade --> NewCipherMachine
+NewEncryptFacade --> FileWriter
+NewEncryptFacade --> FileReader
+@enduml

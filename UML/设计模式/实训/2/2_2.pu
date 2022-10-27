@@ -1,0 +1,69 @@
+@startuml 2_2
+
+abstract Bird
+{
+	# s:Swim
+	# f:Fly
+	+ setSwim(s:fly):void
+	+ setFly(f:fly):void
+	+ show():abstract void
+}
+
+class GeZi
+{
+	+ geZi(name:String)
+	+ show():void
+}
+
+class LaoYing
+{
+	+ laoYing(name:String)
+	+ show():void
+}
+
+class QiE
+{
+	+ QiE(name:String)
+	+ show():void
+}
+
+interface Swim
+{
+	+ showSwim():void
+}
+
+interface Fly
+{
+	+ showFly():void
+}
+
+class CanSwim
+{
+	+ showSwim():void
+}
+
+class NoSwim
+{
+	+ showSwim():void
+}
+
+class CanFly
+{
+	+ showFly():void
+}
+
+class NoFly
+{
+	+ showFly():void
+}
+
+GeZi --|> Bird
+LaoYing --|> Bird
+QiE --|> Bird
+Bird o-- Fly
+Bird o-- Swim
+CanSwim ..|>Swim
+NoSwim ..|>Swim
+CanFly ..|>Fly
+NoFly ..|>Fly
+@enduml

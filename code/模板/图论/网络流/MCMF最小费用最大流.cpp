@@ -5,17 +5,18 @@ using ll=long long;
 using pii=pair<int,int>;
 const int inf=0x3f3f3f3f;
 const int INF=1e9+7;
-const int maxn=1e6;
+const int N=1e6;
 struct node{
 	int to,next,w,c;
-}edge[maxn];
-int head[maxn],cnt;
-int dis[maxn],flow[maxn],last[maxn];
-bitset<maxn>vis;
+}edge[N];
+int head[N],cnt=1,tot;
+int dis[N],flow[N],last[N];
+bitset<N>vis;
 int n,m,s,t;
 void init(){
-	memset(head+1,0,sizeof(int)*n);
+	memset(head+1,0,sizeof(int)*tot);
 	cnt=1;
+	tot=0;
 }
 void add(int from,int to,int w,int c)
 {
@@ -27,8 +28,8 @@ void add(int from,int to,int w,int c)
 }
 bool spfa(int s,int t)
 {
-	memset(dis+1,INF,sizeof(int)*n);
-	memset(last+1,-1,sizeof(int)*n);
+	memset(dis+1,INF,sizeof(int)*tot);
+	memset(last+1,-1,sizeof(int)*tot);
 	vis.reset();
 	queue<int>q;
 	q.push(s);
@@ -58,18 +59,18 @@ bool spfa(int s,int t)
 }
 void MCMF(int s,int t)
 {
-	int maxf=0,maxc=0;
+	int maxf=0,minc=0;
 	while(spfa(s,t))
 	{
 		maxf+=flow[t];
-		maxc+=flow[t]*dis[t];
+		minc+=flow[t]*dis[t];
 		for(int i=t;i!=s;i=edge[last[i]^1].to)
 		{
 			edge[last[i]].w-=flow[t];
 			edge[last[i]^1].w+=flow[t];
 		}
 	}
-	cout<<maxf<<" "<<maxc<<endl;
+	cout<<maxf<<" "<<minc<<endl;
 }
 void solve()
 {
