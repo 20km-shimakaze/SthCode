@@ -24,11 +24,6 @@ void add(int from,int to,int w)
 	e[cnt].next=head[from];
 	head[from]=cnt;
 }
-void add_ed(int x,int y,int w,int rw=0)
-{
-	add(x,y,w);
-	add(y,x,rw);
-}
 bool bfs(int s,int t)
 {
 	memset(dep+1,0,sizeof(int)*tot);
@@ -76,59 +71,43 @@ int DINIC(int s,int t)
 		ans+=dfs(s,INF,t);
 	return ans;
 }
-int a[N],b[N],ra[N],rb[N];
-int flag;
-inline int read()
+void add_ed(int x,int y,int w,int rw=0)
 {
-    char c;int r=0;
-    while (c<'0' || c>'9') c=getchar();
-    while (c>='0' && c<='9')
-    {
-        r=r*10+c-'0';
-        c=getchar();
-    }
-    if (c=='\n') flag=1;
-    return r;
+	add(x,y,w);
+	add(y,x,rw);
 }
+int a[N],b[N],k,ra[N],rb[N];
 void solve()
 {
-	n=read(),m=read();
+	cin>>k>>n;
 	s=++tot;
 	t=++tot;
+	for(int i=1;i<=k;i++)b[i]=++tot,rb[tot]=i;
 	for(int i=1;i<=n;i++)a[i]=++tot,ra[tot]=i;
-	for(int i=1;i<=m;i++)b[i]=++tot,rb[tot]=i;
-	int sum=0;
-	vector<int>v(100),tv[N];
-	for(int i=1;i<=n;i++){
-		// cout<<"*"<<endl;
-		int x;x=read();
-		v[i]=x;
-		sum+=x;
-		flag=0;
-		add_ed(s,a[i],x);
-		while(!flag){
-			x=read();
-			tv[i].push_back(x);
-			add_ed(a[i],b[x],INF);
-		}
-	}
-	for(int i=1;i<=m;i++){
+	for(int i=1;i<=k;i++){
 		int x;cin>>x;
 		add_ed(b[i],t,x);
 	}
-	int ans=DINIC(s,t);
-	set<int>an1,an2;
-	for(int i=head[s];i;i=e[i].next){
-		int to=e[i].to;
-		int w=e[i].w;
-		// if(w<v[ra[to]]){
-		// 	an1.insert(ra[to]);
-		// 	for(int x:tv[ra[to]])an2.insert(x);
-		// }
+	for(int i=1;i<=n;i++){
+		add_ed(s,a[i],1);
+		int q;cin>>q;
+		for(int j=1;j<=q;j++){
+			int x;cin>>x;
+			add_ed(a[i],b[x],1);
+		}
 	}
-	for(int x:an1)cout<<x<<" ";cout<<endl;
-	for(int x:an2)cout<<x<<" ";cout<<endl;
-	cout<<sum-ans<<endl;
+	cout<<DINIC(s,t)<<endl;
+	for(int i=1;i<=k;i++){
+		cout<<i<<": ";
+		for(int j=head[b[i]];j;j=e[j].next){
+			int y=e[j].to;
+			int w=e[j].w;
+			// cout<<y<<" "<<w<<endl;
+			if(y==t)continue;
+			if(w==1)cout<<ra[y]<<" ";
+		}
+		cout<<endl;
+	}
 }
 signed main()
 {

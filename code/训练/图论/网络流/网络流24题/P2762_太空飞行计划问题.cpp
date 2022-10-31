@@ -98,9 +98,8 @@ void solve()
 	for(int i=1;i<=n;i++)a[i]=++tot,ra[tot]=i;
 	for(int i=1;i<=m;i++)b[i]=++tot,rb[tot]=i;
 	int sum=0;
-	vector<int>v(100),tv[N];
+	vector<int>v(10000),tv[100000],pri(1000);
 	for(int i=1;i<=n;i++){
-		// cout<<"*"<<endl;
 		int x;x=read();
 		v[i]=x;
 		sum+=x;
@@ -114,25 +113,21 @@ void solve()
 	}
 	for(int i=1;i<=m;i++){
 		int x;cin>>x;
+		pri[i]=x;
 		add_ed(b[i],t,x);
 	}
 	int ans=DINIC(s,t);
-	set<int>an1,an2;
-	for(int i=head[s];i;i=e[i].next){
-		int to=e[i].to;
-		int w=e[i].w;
-		// if(w<v[ra[to]]){
-		// 	an1.insert(ra[to]);
-		// 	for(int x:tv[ra[to]])an2.insert(x);
-		// }
-	}
-	for(int x:an1)cout<<x<<" ";cout<<endl;
-	for(int x:an2)cout<<x<<" ";cout<<endl;
+	for(int i=1;i<=n;i++){
+		if(dep[a[i]])cout<<i<<" ";
+	}cout<<endl;
+	for(int i=1;i<=m;i++){
+		if(dep[b[i]])cout<<i<<" ";
+	}cout<<endl;
 	cout<<sum-ans<<endl;
 }
 signed main()
 {
-	//IOS
+	//IOS	
 	int __=1;
 	//cin >> __;
 	while (__--)

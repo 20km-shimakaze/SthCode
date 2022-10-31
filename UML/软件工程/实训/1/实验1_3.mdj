@@ -6,7 +6,7 @@
 		{
 			"_type": "UMLModel",
 			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
-			"_parent": {
+			"_parent": {	
 				"$ref": "AAAAAAFF+h6SjaM2Hec="
 			},
 			"name": "Model",

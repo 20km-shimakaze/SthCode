@@ -7,15 +7,23 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
+map<int,int>mp;
+int dfs(int x)
+{
+	if(x==0)return 1;
+	if(mp.count(x))return mp[x];
+	return mp[x]=dfs(x/2)+dfs(x/3);
+}
 void solve()
 {
-    cout<<"***"<<endl;
+	int x;cin>>x;
+	cout<<dfs(x)<<endl;
 }
 signed main()
 {
-    //IOS
-    int __=1;
-    //cin >> __;
-    while (__--)
-        solve();
+	//IOS
+	int __=1;
+	//cin >> __;
+	while (__--)
+		solve();
 }

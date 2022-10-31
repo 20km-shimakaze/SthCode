@@ -9,13 +9,22 @@ const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-    cout<<"***"<<endl;
+	int n;cin>>n;
+	int ans=0,ma=0;
+	for(int i=1;i<=n;i++){
+		int x;cin>>x;
+		if(x>ma){
+			ma=x;
+			ans=i;
+		}
+	}
+	cout<<ans<<endl;
 }
 signed main()
 {
-    //IOS
-    int __=1;
-    //cin >> __;
-    while (__--)
-        solve();
+	//IOS
+	int __=1;
+	//cin >> __;
+	while (__--)
+		solve();
 }

@@ -7,6 +7,7 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
+int x[N],dp[N];
 struct Edge{
 	int to,next,w;
 }e[N];
@@ -23,11 +24,6 @@ void add(int from,int to,int w)
 	e[cnt].to=to;
 	e[cnt].next=head[from];
 	head[from]=cnt;
-}
-void add_ed(int x,int y,int w,int rw=0)
-{
-	add(x,y,w);
-	add(y,x,rw);
 }
 bool bfs(int s,int t)
 {
@@ -76,59 +72,44 @@ int DINIC(int s,int t)
 		ans+=dfs(s,INF,t);
 	return ans;
 }
-int a[N],b[N],ra[N],rb[N];
-int flag;
-inline int read()
+void add_ed(int x,int y,int w,int rw=0)
 {
-    char c;int r=0;
-    while (c<'0' || c>'9') c=getchar();
-    while (c>='0' && c<='9')
-    {
-        r=r*10+c-'0';
-        c=getchar();
-    }
-    if (c=='\n') flag=1;
-    return r;
+	add(x,y,w);
+	add(y,x,rw);
 }
+int a[N],b[N];
 void solve()
 {
-	n=read(),m=read();
+	cin>>n;
+	for(int i=1;i<=n;i++)cin>>x[i];
+	int ans1=0;
+	for(int i=n;i>=1;i--){
+		dp[i]=1;
+		for(int j=i+1;j<=n;j++){
+			if(x[i]<=x[j])dp[i]=max(dp[i],dp[j]+1);
+		}
+		ans1=max(ans1,dp[i]);
+	}
+	cout<<ans1<<endl;
 	s=++tot;
 	t=++tot;
-	for(int i=1;i<=n;i++)a[i]=++tot,ra[tot]=i;
-	for(int i=1;i<=m;i++)b[i]=++tot,rb[tot]=i;
-	int sum=0;
-	vector<int>v(100),tv[N];
+	for(int i=1;i<=n;i++)a[i]=++tot,b[i]=++tot;
 	for(int i=1;i<=n;i++){
-		// cout<<"*"<<endl;
-		int x;x=read();
-		v[i]=x;
-		sum+=x;
-		flag=0;
-		add_ed(s,a[i],x);
-		while(!flag){
-			x=read();
-			tv[i].push_back(x);
-			add_ed(a[i],b[x],INF);
+		add_ed(a[i],b[i],1);
+		if(dp[i]==ans1)add_ed(s,a[i],1);
+		if(dp[i]==1)add_ed(b[i],t,1);
+		for(int j=i+1;j<=n;j++){
+			if(dp[i]==dp[j]+1&&x[i]<=x[j])add_ed(b[i],a[j],1);
 		}
 	}
-	for(int i=1;i<=m;i++){
-		int x;cin>>x;
-		add_ed(b[i],t,x);
-	}
-	int ans=DINIC(s,t);
-	set<int>an1,an2;
-	for(int i=head[s];i;i=e[i].next){
-		int to=e[i].to;
-		int w=e[i].w;
-		// if(w<v[ra[to]]){
-		// 	an1.insert(ra[to]);
-		// 	for(int x:tv[ra[to]])an2.insert(x);
-		// }
-	}
-	for(int x:an1)cout<<x<<" ";cout<<endl;
-	for(int x:an2)cout<<x<<" ";cout<<endl;
-	cout<<sum-ans<<endl;
+	int ans2=DINIC(s,t);
+	cout<<ans2<<endl;
+	add_ed(a[1],b[1],INF);
+	add_ed(a[n],b[n],INF);
+	if(n!=1)if(dp[n]==1)add_ed(b[n],t,INF);
+	if(dp[1]==ans1)add_ed(s,a[1],INF);
+	
+	cout<<ans2+DINIC(s,t)<<endl;
 }
 signed main()
 {

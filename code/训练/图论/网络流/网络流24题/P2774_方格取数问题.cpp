@@ -76,59 +76,35 @@ int DINIC(int s,int t)
 		ans+=dfs(s,INF,t);
 	return ans;
 }
-int a[N],b[N],ra[N],rb[N];
-int flag;
-inline int read()
-{
-    char c;int r=0;
-    while (c<'0' || c>'9') c=getchar();
-    while (c>='0' && c<='9')
-    {
-        r=r*10+c-'0';
-        c=getchar();
-    }
-    if (c=='\n') flag=1;
-    return r;
-}
+int a[103][103],mp[103][103];
+P ra[N];
 void solve()
 {
-	n=read(),m=read();
+	cin>>m>>n;
 	s=++tot;
 	t=++tot;
-	for(int i=1;i<=n;i++)a[i]=++tot,ra[tot]=i;
-	for(int i=1;i<=m;i++)b[i]=++tot,rb[tot]=i;
 	int sum=0;
-	vector<int>v(100),tv[N];
-	for(int i=1;i<=n;i++){
-		// cout<<"*"<<endl;
-		int x;x=read();
-		v[i]=x;
-		sum+=x;
-		flag=0;
-		add_ed(s,a[i],x);
-		while(!flag){
-			x=read();
-			tv[i].push_back(x);
-			add_ed(a[i],b[x],INF);
+	for(int i=1;i<=m;i++){
+		for(int j=1;j<=n;j++){
+			cin>>mp[i][j];
+			a[i][j]=++tot;
+			sum+=mp[i][j];
+			ra[tot]={i,j};
 		}
 	}
 	for(int i=1;i<=m;i++){
-		int x;cin>>x;
-		add_ed(b[i],t,x);
+		for(int j=1;j<=n;j++){
+			if((i+j)&1)add_ed(s,a[i][j],mp[i][j]);
+			else add_ed(a[i][j],t,mp[i][j]);
+			if((i+j)&1){
+				if(i!=m)add_ed(a[i][j],a[i+1][j],INF);
+				if(j!=n)add_ed(a[i][j],a[i][j+1],INF);
+				if(i!=1)add_ed(a[i][j],a[i-1][j],INF);
+				if(j!=1)add_ed(a[i][j],a[i][j-1],INF);
+			}
+		}
 	}
-	int ans=DINIC(s,t);
-	set<int>an1,an2;
-	for(int i=head[s];i;i=e[i].next){
-		int to=e[i].to;
-		int w=e[i].w;
-		// if(w<v[ra[to]]){
-		// 	an1.insert(ra[to]);
-		// 	for(int x:tv[ra[to]])an2.insert(x);
-		// }
-	}
-	for(int x:an1)cout<<x<<" ";cout<<endl;
-	for(int x:an2)cout<<x<<" ";cout<<endl;
-	cout<<sum-ans<<endl;
+	cout<<sum-DINIC(s,t)<<endl;
 }
 signed main()
 {
