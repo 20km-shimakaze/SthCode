@@ -43,8 +43,15 @@ class NewCipherMachine
 	+ encrypt(String plainText):String
 }
 
+abstract class AbstructCipherMachine
+{
+  + fileEncrypt(String filrNameSrc,String fileNameDes):void
+}
+
 EncryptFacade --|> AbstractEncryptFacade
 NewEncryptFacade  --|> AbstractEncryptFacade
+CipherMachine --|> AbstructCipherMachine
+NewCipherMachine --|> AbstructCipherMachine
 EncryptFacade --> CipherMachine
 EncryptFacade --> FileWriter
 EncryptFacade --> FileReader

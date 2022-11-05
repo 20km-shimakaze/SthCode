@@ -60,8 +60,8 @@ class NoFly
 GeZi --|> Bird
 LaoYing --|> Bird
 QiE --|> Bird
-Bird o-- Fly
-Bird o-- Swim
+Bird o--> Fly
+Bird o--> Swim
 CanSwim ..|>Swim
 NoSwim ..|>Swim
 CanFly ..|>Fly

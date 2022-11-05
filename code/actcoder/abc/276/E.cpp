@@ -46,8 +46,8 @@ void solve()
 		for(int i=0;i<4;i++){
 			int xx=x+dx[i];
 			int yy=y+dy[i];
-			if(OK(xx,yy)&&mp[xx][yy]!='#'){
-				if(vis[xx][yy]!=tot&&vis[xx][yy]!=0&&xx!=sx&&yy!=sy){
+			if(OK(xx,yy)&&mp[xx][yy]=='.'){
+				if(vis[xx][yy]!=tot&&vis[xx][yy]!=0){
 					cout<<"Yes"<<endl;
 					return;
 				}

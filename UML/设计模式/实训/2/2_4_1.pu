@@ -1,0 +1,50 @@
+@startuml 2_4_1
+
+abstract class Component
+{
+  + getDescription():String
+  + getCost():double
+}
+
+abstract class Decorator
+{
+  - Component component
+  + Decorator(Component co)
+  + getCost():double
+  + getDescription():String
+}
+class Cilent
+{
+  
+}
+
+class NatieCoffee
+{
+  + getDescription():String
+  + getCost():double
+}
+class BlueCoffee
+{
+  + getDescription():String
+  + getCost():double
+}
+class Milk
+{
+  + Milk(Component co)
+  + addOrange():String
+  + addCost():double
+}
+class Orange
+{
+  + Orange(Component co)
+  + addOrange():String
+  + addCost():double
+}
+Cilent ..> Component
+Component <..o Decorator
+Decorator --|> Component
+BlueCoffee --|> Component
+NatieCoffee --|> Component
+Milk --|> Decorator
+Orange --|> Decorator
+@enduml
