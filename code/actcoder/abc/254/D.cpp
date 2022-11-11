@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define IOS ios::sync_with_stdio(0);cout.tie(0);
+#define int long long
+typedef long long ll;
+// typedef pair<int,int> P;
+const int N=1e6+7;
+const int INF=0x3f3f3f3f3f3f3f3f;
+const int mod=998244353;
+vector<int>sq;
+inline int read()
+{
+	int x=0,f=1;char ch=getchar();
+	while(ch<'0'||ch>'9') {if(ch=='-')f=-1;ch=getchar();}
+	while(ch>='0'&&ch<='9'){x=x*10+ch-'0';ch=getchar();}
+	return x*f;
+}
+inline void write(int x)
+{
+	 if(x<0) putchar('-'),x=-x;
+	 if(x>9) write(x/10);
+	 putchar(x%10+'0');
+}
+void solve()
+{
+	int n=read();
+	int ans=0;
+	for(int i=1;i*i<=n;i++){
+		for(int j=1;j*j<=n;j++){
+			if(__gcd(i,j)!=1)continue;
+			ans+=n/max(i*i,j*j);
+		}
+	}
+	write(ans);
+}
+signed main()
+{
+	//IOS
+	int __=1;
+	//cin >> __;
+	while (__--)
+		solve();
+}

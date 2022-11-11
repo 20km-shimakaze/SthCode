@@ -9,34 +9,26 @@ const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-	map<int,int>mp;
+	vector<int>a(4,0);
 	int n;
 	cin>>n;
-	int fl=0;
 	for(int i=1;i<=n;i++){
-		int a,b;
-		cin>>a>>b;
-		for(int j=2;j*j<=b;j++){
-			if(b%j==0){
-				if(mp.count(j))mp[j]=a%j;
-				else{
-					if(mp[j]%j!=a%j)fl=1;
-				}
-				b/=j;
-			}
-		}
-		if(b!=1){
-			if(mp.count(b))mp[b]=a%b;
-			else if(mp[b]%b!=a%b)fl=1;
-		}
+		string s;
+		cin>>s;
+		if(s[0]=='M')a[0]++;
+		else if(s[0]=='C')a[1]++;
+		else if(s[0]=='O')a[2]++;
+		else if(s[0]=='I')a[3]++;
 	}
-	cout<<(fl?"No":"Yes")<<endl;
+	int ans=0;
+	ans+=a[0]*a[1]*a[2]+a[0]*a[1]*a[3]+a[0]*a[2]*a[3]+a[1]*a[2]*a[3];
+	cout<<ans<<endl;
 }
 signed main()
 {
 	//IOS
 	int __=1;
-	cin >> __;
+	//cin >> __;
 	while (__--)
 		solve();
 }

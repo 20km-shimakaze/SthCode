@@ -65,7 +65,6 @@ void solve()
 		putchar('1');
 		while(ans[i]>0)putchar('0'),ans[i]--;
 	}
-	cout<<"****"<<endl;
 }
 signed main()
 {

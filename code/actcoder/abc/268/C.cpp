@@ -4,21 +4,29 @@ using namespace std;
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-const int N=2e5+7;
+const int N=1e6+7;
+const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-	
+	int n;cin>>n;
+	vector<int>a(n);
+	for(int &x:a)cin>>x;
+	vector<int>cnt(n,0);
+	for(int i=0;i<n;i++){
+		for(int j=0;j<3;j++){
+			cnt[(a[i]-1-i+j+n)%n]++;
+		}
+	}
+	int ans=0;
+	for(int x:cnt)ans=max(ans,x);
+	cout<<ans<<endl;
 }
 signed main()
 {
 	//IOS
-	// freopen("C:\\Users\\tob\\Desktop\\P4391_9.in.txt","r",stdin);
- 	// freopen("C:\\Users\\tob\\Desktop\\P4391_9.out.txt","w",stdout);
 	int __=1;
 	//cin >> __;
 	while (__--)
 		solve();
-	//  fclose(stdin);
-	//  fclose(stdout);
 }
