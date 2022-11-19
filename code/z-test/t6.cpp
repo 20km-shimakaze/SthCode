@@ -5,67 +5,37 @@ using namespace std;
 typedef long long ll;
 typedef pair<int,int> P;
 const int N=1e6+7;
-const int INF=0x3f3f3f3f3f3f3f3f;
+const int INF=2e9;
 const int mod=998244353;
-int qpow(ll a,ll n)
-{
-	if(a%mod==0)return 0;
-	ll ans=1;
-	while(n){
-		if(n&1){
-			ans=ans*a%mod;
-		}
-		n>>=1;
-		a=a*a%mod;
-	}
-	ans%=mod;
-	return ans;
-}
-int C(int n,int m)
-{
-    if(n<m) return 0;
-    int res=1;
-    for(int i=1;i<=m;i++)
-    {
-        res*=((n-m+i)%mod)*qpow(i,mod-2)%mod;
-        res%=mod;
-    }
-    return res;
-}
-int ans[N];
+int s[103][103],ss[103][103];
+int n,m;
 void solve()
 {
-	int n,k;
-	cin>>n>>k;
-	int cnt=0;
-	while(1){
-		int num=C(k+cnt-1,k-1);
-		if(n>num){
-			n-=num;
-			cnt++;
-		}
-		else break;
-	}
-	ans[1]=cnt;cnt=1;
-	while(--n){
-		if(cnt>=k){
-			for(int i=k-1;i>=1;i--){
-				if(ans[i]>0){
-					cnt=i+1;
-					ans[i]--;
-					ans[i+1]=1+ans[k];
-					if (i!=k-1) ans[k]=0;
-                    break;
+	while(cin>>n>>m){
+		memset(s,0x3f,sizeof(s));
+		memset(ss,0x3f,sizeof(ss));
+		for(int i=1;i<=m;i++){
+			int x,y,c;
+			cin>>x>>y>>c;
+			s[y][x]=s[x][y]=ss[y][x]=ss[x][y]=min(c,s[x][y]);
+		}	
+		int ans=INF;
+		for(int k=1;k<=n;k++){
+			for(int i=1;i<=n;i++){
+				for(int j=1;j<=n;j++){
+					if(i==k||j==k||i==j)continue;
+					ans=min(ans,ss[i][k]+ss[k][j]+s[i][j]);
+				}
+			}
+			for(int i=1;i<=n;i++){
+				for(int j=1;j<=n;j++){
+					s[i][j]=min(s[i][j],s[i][k]+s[k][j]);
 				}
 			}
 		}
-		else ans[cnt]--,ans[++cnt]++;
+		if(ans==INF)cout<<"It's impossible."<<endl;
+		else cout<<ans<<endl;
 	}
-	for(int i=1;i<=k;i++){
-		putchar('1');
-		while(ans[i]>0)putchar('0'),ans[i]--;
-	}
-	cout<<"****"<<endl;
 }
 signed main()
 {

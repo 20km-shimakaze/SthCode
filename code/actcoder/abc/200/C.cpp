@@ -7,15 +7,26 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
+int cnt[N];
+int ans;
 void solve()
 {
-    
+	int n;
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		int x;
+		cin>>x;
+		x%=200;
+		ans+=cnt[x];
+		cnt[x]++;
+	}
+	cout<<ans<<endl;
 }
 signed main()
 {
-    //IOS
-    int __=1;
-    //cin >> __;
-    while (__--)
-        solve();
+	//IOS
+	int __=1;
+	//cin >> __;
+	while (__--)
+		solve();
 }

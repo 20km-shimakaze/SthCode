@@ -28,9 +28,9 @@ void tarjan(int x,int fa)
 		if(!dfn[y]){
 			tarjan(y,fa);
 			low[x]=min(low[x],low[y]);
-			if(low[y]>=dfn[x]){//¸îµãÊÇ>=£¬¸î±ßÊÇ>
+			if(low[y]>=dfn[x]){//å‰²ç‚¹æ˜¯>=ï¼Œå‰²è¾¹æ˜¯>
 				num++;
-				if(x!=fa||num>1)ans[x]=1;//²»ÊÇ¸ù½Úµã»òÊÇ¸ù½ÚµãÇÒ¶ù×ÓÊý´óÓÚ1
+				if(x!=fa||num>1)ans[x]=1;//ä¸æ˜¯æ ¹èŠ‚ç‚¹æˆ–æ˜¯æ ¹èŠ‚ç‚¹ä¸”å„¿å­æ•°å¤§äºŽ1
 			}
 		}
 		else low[x]=min(low[x],dfn[y]);

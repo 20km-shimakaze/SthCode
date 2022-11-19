@@ -1,0 +1,35 @@
+@startuml 2_5_1
+
+interface OrderMM
+{
+  + getProductName():String
+  + getProductNum():int
+  + getCustomerName():String
+  + setProductName(String productName, String user):void 
+  + setProductNum(int productNum, String user):void
+  + setCustomerName(String customerName, String user):void
+}
+class Order
+{
+  - productName:String
+  - productNum:int
+  - customerName:String
+  + setProductName():void
+  + getProductNum():int
+  + setProductNum(int productNum, String user):String
+}
+
+class OrderProxy
+{
+  - order:Order
+  + getProductName():String
+  + setProductName(String productName, String user):void
+  + getProductNum():int
+  + setProductNum(int orderNum, String user):void
+  + setCustomerName(String customerName, String user):void
+}
+OrderMM <|-- OrderProxy
+OrderMM <|-- Order
+OrderProxy --> Order
+
+@enduml

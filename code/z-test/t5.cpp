@@ -1,52 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
-using ll=long long;
-using pii=pair<int,int>;
-const int INF=1e9;
-const int maxn=1e6;
-struct Edge{int to,next,w;}edge[maxn];
-int head[maxn],cnt;
-int n,m;
-void add(int from,int to,int w){
-	edge[++cnt].w=w;
-	edge[cnt].to=to;
-	edge[cnt].next=head[from];
-	head[from]=cnt;
+#define mod 998244353
+#define ll long long
+map<ll,ll> mp;
+ll x;
+ll f(ll x){
+	if(x<=4) return x;
+	if(mp.count(x)) return mp[x];
+	return mp[x]=f(x/2)*f((x+1)/2)%mod;
 }
-bool spfa(int s)
-{
-	vector<int>dis(n+10,INF);
-	vector<int>in(n+10);
-	bitset<maxn>vis;
-	queue<int>q;
-	q.push(s);
-	vis[s]=0;
-    dis[s]=0;
-	while(!q.empty()){
-		int x=q.front();q.pop();
-		vis[x]=0;
-		in[x]++;
-		if(in[x]>n)return 0;//in[x]
-		for(int i=head[x];i;i=edge[i].next){
-			int y=edge[i].to;
-			if(dis[y]>dis[x]+edge[i].w){
-				dis[y]=dis[x]+edge[i].w;
-				if(!vis[y])vis[y]=1,q.push(y);
-			}
-		}
-	}
-	for(int i=1;i<=n;i++)
-		cout<<dis[i]<<" ";
-	return 1;
-}
-int main()
-{
-    int s;
-	cin>>n>>m>>s;
-	for(int i=1;i<=m;i++){
-		int x,y,z;
-		cin>>x>>y>>z;
-		add(x,y,z);
-	}
-	spfa(s);
+int main(){
+	cin>>x;
+	cout<<f(x)<<endl;
 }

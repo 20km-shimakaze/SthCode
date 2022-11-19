@@ -14,33 +14,6 @@ struct Edge
 vector<int>v[N];
 bitset<N>vi;
 stack<int>st;
-int qpow(int a,int b)
-{
-    int res=1;
-    while(b)
-    {
-        if(b&1)
-            res=res*a%mod;
-        a=a*a%mod;
-        b>>=1;
-    }
-    return res;
-}
-int inv(int z)
-{
-    return qpow(z,mod-2);
-}
-int C(int n,int m)
-{
-    if(n<m) return 0;
-    int res=1;
-    for(int i=1;i<=m;i++)
-    {
-        res*=((n-m+i)%mod)*qpow(i,mod-2)%mod;
-        res%=mod;
-    }
-    return res;
-}
 void add(int from,int to)
 {
     e[++cnt].to=to;

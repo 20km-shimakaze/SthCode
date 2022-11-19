@@ -1,5 +1,5 @@
 /*
-tarjanÇóÇ¿ÁªÍ¨·ÖÁ¿
+tarjanæ±‚å¼ºè”é€šåˆ†é‡
 */
 #include<bits/stdc++.h>
 using namespace std;
@@ -23,7 +23,7 @@ void add(int from,int to)
 stack<int>st;
 bitset<N>vis;
 int low[N],dfn[N],idx;
-int ans=0,num[N];//Ç¿ÁªÍ¨·ÖÁ¿¸öÊı,Ã¿¸öµã·Ö±ğ¹éÊô±àºÅ
+		int ans=0,num[N];//å¼ºè”é€šåˆ†é‡ä¸ªæ•°,æ¯ä¸ªç‚¹åˆ†åˆ«å½’å±ç¼–å·
 void tarjan(int x)
 {
 	low[x]=dfn[x]=++idx;

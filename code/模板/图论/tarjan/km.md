@@ -1,24 +1,13 @@
-#include<stdlib.h>
-#include<algorithm>
-#include<iostream>
-#include<cstring>
-#include<string>
-#include<vector>
-#include<bitset>
-#include<queue>
-#include<stack>
-#include<map>
-#include<set>
+# KM
+
+```c++
+#include <bits/stdc++.h>
 using namespace std;
-#define IOS ios::sync_with_stdio(0);cout.tie(0);
 #define int long long
-typedef long long ll;
-typedef pair<int,int> P;
-const int N=1003;
+const int N=303;
 const int INF=0x3f3f3f3f;
 const int mod=998244353;
-int link[N],n,lx[N],ly[N];
-int w[N][N];
+int link[N],n,lx[N],ly[N],w[N][N];
 bitset<N>vx,vy;
 int dfs(int x)
 {
@@ -69,28 +58,15 @@ int KM()
     for(int i=1;i<=n;i++)ans+=w[link[i]][i];
     return ans;
 }
-int m;
-void solve()
-{
-    cin>>n>>m;
-	for(int i=1;i<=n;i++){
-		for(int j=1;j<=n;j++){
-			w[i][j]=-INF;
-		}
-	}
-    for(int i=1;i<=m;i++){
-        int x,y,c;
-        cin>>x>>y>>c;
-        w[x][y]=max(w[x][y],-c);
-		// w[x][y]=-c;
-    }
-    cout<<-KM()<<endl;
-}
 signed main()
 {
-    //IOS
-    int __=1;
-    cin >> __;
-    while (__--)
-        solve();
+    while(cin>>n){
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                cin>>w[i][j];
+            }
+        }
+        cout<<KM()<<endl;
+    }
 }
+```
