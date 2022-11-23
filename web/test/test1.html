@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <style type="text/css">
+        body{
+            background-color: rgb(220, 226, 226);
+        }
+    </style> -->
+<meta charset="utf-8">
+<title>编程帮</title>
+</head>
+<body>
+<h1 style="color: blue;">编程帮www.biancheng.net</h1>
+<h2>Python爬虫</h2>
+<p>点击下方按钮获取当前时间</p>
+<div>
+<button onclick="DisplayDate()">点击这里</button>
+<p id="time" style="color: red;"></p>
+<!-- script标签内部编写js代码 -->
+<script>
+    function DisplayDate(){
+        document.getElementById("time").innerHTML=Date()
+
+    }
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+@startuml
+
+interface Discount{
+    + action(Double price) : Double
+}
+
+class Book{
+    # discount: Discount
+    # price : Double
+    + actionDiscount() : Double
+}
+
+class ComputerBook extends Book{
+    # discount: Discount
+    # price : Double
+    + actionDiscount() : Double
+}
+class LanguageBook extends Book{
+    # discount: Discount
+    # price : Double
+    + actionDiscount() : Double
+}
+class NovelBook extends Book{
+    # discount: Discount
+    # price : Double
+    + actionDiscount() : Double
+}
+
+Book o.. Discount
+class TenDiscount implements Discount{
+    + action(Double price) : Double
+}
+class TwoYuanDiscount implements Discount{
+    + action(Double price) : Double
+}
+class TenFullOneHundredDiscount implements Discount{
+    + action(Double price) : Double
+}
+
+@enduml

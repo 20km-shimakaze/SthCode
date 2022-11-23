@@ -1,0 +1,49 @@
+@startuml
+
+interface  Status{
+    + checkInRoom() : void
+    + bookRoom() : void
+    + cancelRoom() : void
+    + checkOutRoom() : void
+}
+
+class HotelContext {
+    - currentStatus : Status
+    - freeStatus : Status
+    - busyStatus : Status
+    - bookedStatus : Status
+
+    + bookRoom() : void
+    + checkInRoom() : void
+    + checkOutRoom() : void
+    + cancelRoom() : void
+}
+
+class FreeStatus implements Status{
+    - hotelContext : HotelContext
+    
+    + bookRoom() : void
+    + checkInRoom() : void
+    + checkOutRoom() : void
+    + cancelRoom() : void
+}
+class BookedStatus implements Status{
+    - hotelContext : HotelContext
+    
+    + bookRoom() : void
+    + checkInRoom() : void
+    + checkOutRoom() : void
+    + cancelRoom() : void
+}
+class BusyStatus implements Status{
+    - hotelContext : HotelContext
+    
+    + bookRoom() : void
+    + checkInRoom() : void
+    + checkOutRoom() : void
+    + cancelRoom() : void
+}
+
+HotelContext o.. Status
+
+@enduml

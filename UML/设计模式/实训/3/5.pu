@@ -1,0 +1,37 @@
+@startuml
+
+
+interface Observer{
+    + update(Subject subject) : void
+}
+class StockObserver implements Observer{
+    - name : String
+    + update(Subject subject) : void
+}
+
+class Subject{
+    + name : String
+    + curPrice : Double
+    + oldPrice : Double
+    + observerVec : Vector<Observer>
+    + attach(Observer observer) : void
+    + detach(Observer observer) : void
+    + {abstract}notifyObserver() : void
+    + {abstract}updatePrice(Double newPrice) : void
+}
+class StockSubject extends Subject{
+    + name : String
+    + curPrice : Double
+    + oldPrice : Double
+    + observerVec : Vector<Observer>
+    + attach(Observer observer) : void
+    + detach(Observer observer) : void
+    + notifyObserver() : void
+    + updatePrice(Double newPrice) : void
+}
+
+Subject o.. Observer 
+
+
+
+@enduml

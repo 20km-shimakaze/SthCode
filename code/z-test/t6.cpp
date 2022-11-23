@@ -5,43 +5,57 @@ using namespace std;
 typedef long long ll;
 typedef pair<int,int> P;
 const int N=1e6+7;
-const int INF=2e9;
+const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
-int s[103][103],ss[103][103];
-int n,m;
+int n,c,d;
+int a[N],su[N];
+bool check(int k)
+{
+	int sum=su[min(k+1,n)];
+	int num=c/sum;
+	int cc=c%sum;
+	int day=num*(k+1);
+	int dis=lower_bound(su,su+1+n,cc)-su;
+	// cout<<"dis="<<dis<<" "<<day<<" "<<cc<<" "<<sum<<endl;
+	return day+dis<=d;
+}
 void solve()
 {
-	while(cin>>n>>m){
-		memset(s,0x3f,sizeof(s));
-		memset(ss,0x3f,sizeof(ss));
-		for(int i=1;i<=m;i++){
-			int x,y,c;
-			cin>>x>>y>>c;
-			s[y][x]=s[x][y]=ss[y][x]=ss[x][y]=min(c,s[x][y]);
-		}	
-		int ans=INF;
-		for(int k=1;k<=n;k++){
-			for(int i=1;i<=n;i++){
-				for(int j=1;j<=n;j++){
-					if(i==k||j==k||i==j)continue;
-					ans=min(ans,ss[i][k]+ss[k][j]+s[i][j]);
-				}
-			}
-			for(int i=1;i<=n;i++){
-				for(int j=1;j<=n;j++){
-					s[i][j]=min(s[i][j],s[i][k]+s[k][j]);
-				}
-			}
-		}
-		if(ans==INF)cout<<"It's impossible."<<endl;
-		else cout<<ans<<endl;
+	int maxx=0,summ=0;
+	cin>>n>>c>>d;
+	for(int i=1;i<=n;i++)cin>>a[i];
+	sort(a+1,a+1+n,[&](int a,int b){
+		return a>b;
+	});
+	if(a[1]*d<c){
+		cout<<"Impossible"<<endl;
+		return;
 	}
+	for(int i=1;i<=min(d,n);i++){
+		summ+=a[i];
+	}
+	if(summ>=c){
+		cout<<"Infinity"<<endl;
+		return;
+	}
+	for(int i=1;i<=n;i++)su[i]=su[i-1]+a[i];
+	int l=0,r=1e8+7,ans=0;
+	while(l<=r){
+		int mid=(l+r)/2;
+		if(check(mid)){
+			ans=mid;
+			l=mid+1;
+		}
+		else r=mid-1;
+		// cout<<l<<" "<<r<<endl;
+	}
+	cout<<ans<<endl;
 }
 signed main()
 {
 	//IOS
 	int __=1;
-	//cin >> __;
+	cin >> __;
 	while (__--)
 		solve();
 }

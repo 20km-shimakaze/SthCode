@@ -1,0 +1,40 @@
+@startuml
+interface AbsIterator{
+    + begin() : void
+    + end() : void
+    + hasNext() : boolean
+    + hasPrev() : boolean
+    + prev() : Object
+    + next() : Object
+}
+class TvIterator implements AbsIterator{
+    - tv : ConcreteTv
+    - index : int
+    - size : int
+    + begin() : void
+    + end() : void
+    + hasNext() : boolean
+    + hasPrev() : boolean
+    + prev() : Object
+    + next() : Object
+    + getNextIterator() : AbsIterator
+    + getPrevIterator() : AbsIterator
+}
+
+abstract class Tv{
+    + createNextIterator() : AbsIterator
+    + createPrevIterator() : AbsIterator
+}
+class ConcreteTv extends Tv{
+    - objList : List<Object>
+    + createIterator() : TvIterator
+    + createIterator(List<Object>) : TvIterator
+    + getCurrentItem(int idx) : Object
+    + size() : int
+}
+
+ConcreteTv ..> TvIterator
+TvIterator o.. ConcreteTv
+
+
+@enduml

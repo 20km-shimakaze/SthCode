@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="css" href="css/main.css">
+   <!-- 内嵌样式 -->
+    <!-- <style type="text/css">
+    
+    /* body{
+        background-color:yellow;
+    } */
+    h3{
+        /* font-size: 30px; */
+        color: springgreen;
+    }
+    </style> -->
 <meta charset="utf-8">
-<title>20km_shimakaze</title>
+<title>编程帮</title>
 </head>
 <body>
-<h1>标题</h1>
-<p>段落</p>
-<img src="null" alt="233">
+<!-- h1标签使用了行内样式 -->
+<h1 style="color: blue;">编程帮www.biancheng.net</h1>
+<a href="www.biancheng.net">点击访问</a>
+<h2>Python爬虫</h2>
+<div>
+<abc>认识网页结构</abc>
+<p>认识网页结构</p>
+<ul>
+<li>HTML</li>
+<li>CSS</li>
+</ul>
+</div>
+<div>
+	<button onclick="DisplayDate()">show</button>
+	<p id="time" style="color: blue;"></p>
+	<script>
+		function DisplayDate(){
+			document.getElementById("time").innerHTML=Date()
+		}
+	</script>
+</div>
 </body>
 </html>

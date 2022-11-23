@@ -9,22 +9,25 @@ const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-    int x,y,z,a,b;
-    cin>>x>>y>>z>>a>>b;
-    if(a>b)swap(a,b),swap(x,y);
-    int fl=0;
-    int t=0;
-    t+=x;
-    if(t>a)fl=1;
-    t+=z;
-    if(t>b)fl=1;
-    cout<<(fl?"NO":"YES")<<endl;
+	set<int>se;
+	int n;
+	cin>>n;
+	vector<int>v(n);
+	for(int &x:v){
+		cin>>x;
+		se.insert(x);
+	}
+	if(se.size()==1||se.size()>2){
+		cout<<n<<endl;
+		return;
+	}
+	cout<<n/2+1<<endl;
 }
 signed main()
 {
-    //IOS
-    int __=1;
-    cin >> __;
-    while (__--)
-        solve();
+	//IOS
+	int __=1;
+	cin >> __;
+	while (__--)
+		solve();
 }

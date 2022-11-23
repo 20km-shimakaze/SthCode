@@ -1,0 +1,43 @@
+@startuml
+
+interface Command{
+    + execute() : void
+}
+
+class CreateFileCommand implements Command{
+    - fileReceiver : FileReceiver
+    - src : String
+    + execute() : void
+}
+
+class OpenFileCommand implements Command{
+    - fileReceiver : FileReceiver
+    - src : String
+    + execute() : void
+}
+class SaveFileCommand implements Command{
+    - fileReceiver : FileReceiver
+    - src : String
+    + execute() : void
+}
+
+class FileReceiver{
+    + createFile() : void
+    + openFile() : void
+    + saveFile() : void
+}
+
+class FileInvoker{
+    - commands : List<Command>
+    + addCommands(Command command) : void
+    + executeCommands() : void
+}
+
+Client ..> FileInvoker
+
+FileInvoker o.. Command
+CreateFileCommand o.. FileReceiver
+OpenFileCommand o.. FileReceiver
+SaveFileCommand o.. FileReceiver
+
+@enduml

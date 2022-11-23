@@ -1,0 +1,26 @@
+@startuml
+
+class UserInfo{
+    -  username : String
+    -  password : String
+    -  tel : String
+    + save() : UserInfoMemento
+    + restore(UserInfoMemento userInfoMemento) : void
+}
+class  UserInfoMemento{
+    -  username : String
+    -  password : String
+    -  tel : String
+    + UserInfoMemento(String username,String password,String tel)
+}
+
+class MementoCaretaker{
+     - userInfoMementoList : List<UserInfoMemento>
+     + getMemento() : UserInfoMemento
+     + setMemento(UserInfoMemento userInfoMemento) : void
+}
+
+UserInfo ..> UserInfoMemento
+MementoCaretaker o.. UserInfoMemento
+
+@enduml

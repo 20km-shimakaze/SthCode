@@ -1,0 +1,27 @@
+@startuml
+interface Handler{
+    + setNextHandler(Handler handler)
+    + handler(int request)
+}
+
+class DirectorHandler implements Handler{
+    - nextHandler : Handler
+    + setNextHandler(Handler handler)
+    + handler(int request)
+}
+class ManagerHandler implements Handler{
+    - nextHandler : Handler
+    + setNextHandler(Handler handler)
+    + handler(int request)
+}
+class DirectorGeneralManagerHandler implements Handler{
+    - nextHandler : Handler
+    + setNextHandler(Handler handler)
+    + handler(int request)
+}
+DirectorHandler o.. Handler
+ManagerHandler o.. Handler
+DirectorGeneralManagerHandler o.. Handler
+
+Clinet ..> DirectorHandler
+@enduml
