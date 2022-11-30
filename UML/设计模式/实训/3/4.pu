@@ -11,7 +11,7 @@ class  UserInfoMemento{
     -  username : String
     -  password : String
     -  tel : String
-    + UserInfoMemento(String username,String password,String tel)
+    + UserInfoMemento(String username,String password,String tel) :void
 }
 
 class MementoCaretaker{
