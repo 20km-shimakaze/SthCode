@@ -7,46 +7,46 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
-map<P,char>mp;
-int idx=0,idx1=0;
+vector<int>pri;
+int vi[N];
+void init()
+{
+	for(int i=2;i<1e5;i++){
+		if(vi[i])continue;
+		pri.push_back(i);
+		for(int j=2;j*i<1e5;j++){
+			vi[i*j]=1;
+		}
+	}
+}
+set<int>se;
 void solve()
 {
-    int n,m;
-    cin>>n>>m;
-    while(m--){
-        char op;
-        cin>>op;
-        if(op=='+'){
-            int u,v;
-            char c;
-            cin>>u>>v>>c;
-            mp[{u,v}]=c;
-            if(mp.count({v,u})&&mp[{u,v}]==mp[{v,u}])idx++;
-            if(mp.count({v,u}))idx1++;
-        }
-        else if(op=='-'){
-            int u,v;
-            cin>>u>>v;
-            if(mp.count({v,u})&&mp[{v,u}]==mp[{u,v}]){
-                mp.erase({u,v});
-                idx--;
-            }
-            else mp.erase({u,v});
-            if(mp.count({v,u}))idx1--;
-        }
-        else{
-            int k;
-            cin>>k;
-            if((k&1)&&idx1)cout<<"YES"<<endl;
-            else cout<<(idx?"YES":"NO")<<endl;
-        }
-    }
+	int n;
+	cin>>n;
+	se.clear();
+	int fl=0;
+	while(n--){
+		int x;
+		cin>>x;
+		for(int i=0;i<pri.size();i++){
+			if(pri[i]*pri[i]>x)break;
+			if(x%pri[i]==0){
+				if(se.count(pri[i]))fl=1;
+				else se.insert(pri[i]);
+			}
+		}
+		if(se.count(x))fl=1;
+		else se.insert(x);
+	}
+	cout<<(fl?"YES":"NO")<<endl;
 }
 signed main()
 {
-    //IOS
-    int __=1;
-    //cin >> __;
-    while (__--)
-        solve();
+	IOS
+	init();
+	int __=1;
+	// cin >> __;
+	while (__--)
+		solve();
 }

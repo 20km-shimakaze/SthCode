@@ -62,7 +62,7 @@ void init_inv(int n)
 		inv[i]=(mod-mod/i)*inv[mod%i]%mod;
 	}
 }
-int C(int n,int m)//��Ҫ�ȴ���inv,��Χm
+int C(int n,int m)//需要先处理inv,范围m
 {
 	int s=1;
 	for(int i=0;i<m;i++){
@@ -72,7 +72,7 @@ int C(int n,int m)//��Ҫ�ȴ���inv,��Χm
 }
 */
 /*
-//��ΧԤ�����׳˺���Ԫ
+//大范围预处理阶乘和逆元
 int fac[N],inv[N];
 void init(int n)
 {

@@ -1,96 +1,62 @@
-#include<stdlib.h>
-#include<algorithm>
-#include<iostream>
-#include<cstring>
-#include<string>
-#include<vector>
-#include<bitset>
-#include<queue>
-#include<stack>
-#include<map>
-#include<set>
+#include <bits/stdc++.h>
 using namespace std;
 #define IOS ios::sync_with_stdio(0);cout.tie(0);
 #define int long long
 typedef long long ll;
 typedef pair<int,int> P;
-const int N=1003;
-const int INF=0x3f3f3f3f;
-const int mod=998244353;
-int link[N],n,lx[N],ly[N];
-int w[N][N];
-bitset<N>vx,vy;
-int dfs(int x)
+const int N=1e6+7;
+const int INF=0x3f3f3f3f3f3f3f3f;
+int mod=998244353;
+int n;
+int fac[N],inv[N];
+int qpow(ll a,ll n)
 {
-    vx[x]=1;
-    for(int i=1;i<=n;i++){
-        if(!vy[i]&&lx[x]+ly[i]==w[x][i]){
-            vy[i]=1;
-            if(!link[i]||dfs(link[i])){
-                link[i]=x;
-                return 1;
-            }
+    if(a%mod==0)return 0;
+    ll ans=1;
+    while(n){
+        if(n&1){
+            ans=ans*a%mod;
         }
+        n>>=1;
+        a=a*a%mod;
     }
-    return 0;
-}
-int KM()
-{
-    for(int i=1;i<=n;i++){
-        lx[i]=-INF;
-        ly[i]=0;
-        link[i]=0;
-        for(int j=1;j<=n;j++){
-            lx[i]=max(lx[i],w[i][j]);
-        }
-    }
-    for(int i=1;i<=n;i++){
-        while(1){
-            vx.reset();
-            vy.reset();
-            if(dfs(i))break;
-            int d=INF;
-            for(int j=1;j<=n;j++){
-                if(vx[j]){
-                    for(int k=1;k<=n;k++){
-                        if(!vy[k])d=min(d,lx[j]+ly[k]-w[j][k]);
-                    }
-                }
-            }
-            if(d==INF){
-                cout<<"T_T"<<endl;
-                return -1;
-            }
-            for(int j=1;j<=n;j++)if(vx[j])lx[j]-=d;
-            for(int j=1;j<=n;j++)if(vy[j])ly[j]+=d;
-        }
-    }
-    int ans=0;
-    for(int i=1;i<=n;i++)ans+=w[link[i]][i];
+    ans%=mod;
     return ans;
 }
-int m;
+void init(int n)
+{
+	inv[0]=fac[0]=1;
+	for(int i=1;i<=n;i++){
+		inv[i]=inv[i-1]*qpow(i,mod-2)%mod;
+	}
+	for(int i=1;i<=n;i++){
+		fac[i]=(fac[i-1]*i)%mod;
+	}
+}
+int C(int n,int m)
+{
+    if(m>n)return 0;
+    return fac[n]*inv[m]%mod*inv[n-m]%mod;
+}
 void solve()
 {
-    cin>>n>>m;
-	for(int i=1;i<=n;i++){
-		for(int j=1;j<=n;j++){
-			w[i][j]=-INF;
-		}
-	}
-    for(int i=1;i<=m;i++){
-        int x,y,c;
-        cin>>x>>y>>c;
-        w[x][y]=max(w[x][y],-c);
-		// w[x][y]=-c;
+    cin>>n>>mod;
+    init(n);
+    int ans=0;
+    int t=n/2;
+    for(int i=t;i<=n-2;i++){
+        for(int j=0;j<=n-i-2;j++){
+            ans=(ans+C(n-i-2,j)*fac[i+j-1]%mod*(2*t-i)%mod)%mod;
+        }
     }
-    cout<<-KM()<<endl;
+    if(n%2==0)ans=(ans+fac[n-2])%mod;
+    cout<<ans*n%mod<<endl;
 }
 signed main()
 {
     //IOS
     int __=1;
-    cin >> __;
+    //cin >> __;
     while (__--)
         solve();
 }

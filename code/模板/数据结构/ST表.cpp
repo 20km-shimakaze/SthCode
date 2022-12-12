@@ -2,9 +2,9 @@
 #define IOS ios::sync_with_stdio(0);cout.tie(0);
 using namespace std;
 const int maxn=1e5+7;
-int f[maxn][30];//f[i][j]´Ói¿ªÊ¼2^j³¤¶ÈµÄ×î´óÖµ 
-int mn[maxn];//´¢´æ´ð°¸ 
-int p[maxn];//Ô­Êý×é 
+int f[maxn][30];//f[i][j]ä»Žiå¼€å§‹2^jé•¿åº¦çš„æœ€å¤§å€¼ 
+int mn[maxn];//å‚¨å­˜ç­”æ¡ˆ 
+int p[maxn];//åŽŸæ•°ç»„ 
 int n,m;
 
 int read(){
@@ -15,18 +15,18 @@ int read(){
 }
 void st()
 {
-	for(int i=1;i<=n;i++)//¾àÀëÎª0³õÊ¼»¯ 
+	for(int i=1;i<=n;i++)//è·ç¦»ä¸º0åˆå§‹åŒ– 
 		f[i][0]=p[i];
-	int t=log(n)/log(2)+1;//j¶¨Î» 
+	int t=log(n)/log(2)+1;//jå®šä½ 
 	for(int j=1;j<t;j++)
 	{
 		for(int i=1;i<=n-(1<<j)+1;i++)
 		{
-			f[i][j]=max(f[i][j-1],f[i+(1<<(j-1))][j-1]);//f[i][j-1]Îªf[i][j]µÄ³¤Îª2^j-1µÄÇ°°ë¶Î£¬ÁíÒ»¶ÎÎªf[i+(1<<(j-1))][j-1] 
+			f[i][j]=max(f[i][j-1],f[i+(1<<(j-1))][j-1]);//f[i][j-1]ä¸ºf[i][j]çš„é•¿ä¸º2^j-1çš„å‰åŠæ®µï¼Œå¦ä¸€æ®µä¸ºf[i+(1<<(j-1))][j-1] 
 		}
 	}
 	
-	for(int len=1;len<=n;len++)//Êý×é´¢´æ´ð°¸ 
+	for(int len=1;len<=n;len++)//æ•°ç»„å‚¨å­˜ç­”æ¡ˆ 
 	{
 		int k=0;
 		while((1<<(k+1))<=len)
@@ -35,7 +35,7 @@ void st()
 	}
 }
 
-int rst(int L,int R)//´ð°¸Êý×é²éÑ° ²»ÍÆ¼ö 
+int rst(int L,int R)//ç­”æ¡ˆæ•°ç»„æŸ¥å¯» ä¸æŽ¨è 
 {
 	if(L>R)swap(L,R);
 	int k=mn[R-L+1];

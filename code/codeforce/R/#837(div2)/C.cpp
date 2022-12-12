@@ -28,33 +28,31 @@ void solve()
 	int fl=0;
 	while(n--){
 		int x;
-		// cin>>x;
 		cin>>x;
+		if(fl)continue;
 		for(int i=0;i<pri.size();i++){
-			// if(pri[i]*pri[i]>x)break;
+			if(pri[i]*pri[i]>x)break;
+			// if(pri[i]>=x)break;
 			if(x%pri[i]==0){
-				if(se.count(pri[i]))fl=1,cout<<pri[i]<<endl;
+				if(se.count(pri[i])){
+					fl=1;
+					break;
+				}	
 				else se.insert(pri[i]);
+				while(x%pri[i]==0)x/=pri[i];
 			}
 		}
-		if(se.count(x))fl=1,cout<<x<<" "<<n<<endl;
+		if(se.count(x)&&x!=1)fl=1;
 		else se.insert(x);
 	}
 	cout<<(fl?"YES":"NO")<<endl;
 }
 signed main()
 {
-	freopen("C:\\Users\\28013\\Desktop\\a.txt","r",stdin);
-	clock_t start, finish;
-	start = clock();
 	IOS
 	init();
 	int __=1;
-	// cin >> __;
+	cin >> __;
 	while (__--)
 		solve();
-	finish = clock();
-	cout << "the time cost is" << double(finish - start) / CLOCKS_PER_SEC;
-	fclose(stdin);
 }
-

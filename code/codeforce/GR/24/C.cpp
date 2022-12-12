@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define IOS ios::sync_with_stdio(0);cout.tie(0);
+#define int long long
+typedef long long ll;
+typedef pair<int,int> P;
+const int N=1e6+7;
+const int INF=0x3f3f3f3f3f3f3f3f;
+const int mod=998244353;
+int n;
+int a[N],p[N];
+void solve()
+{
+	cin>>n;
+	map<int,int>mp;
+	for(int i=1;i<=n;i++){
+		int x;
+		cin>>x;
+		mp[x]++;
+	}
+	int ans=0;
+	int l=0;
+	for(auto[t,val]:mp){
+		l+=val;
+		ans=max(ans,l*(n-l));
+	}
+	if(ans==0)ans=n/2;
+	cout<<ans<<endl;
+}
+signed main()
+{
+	//IOS
+	int __=1;
+	cin >> __;
+	while (__--)
+		solve();
+}
