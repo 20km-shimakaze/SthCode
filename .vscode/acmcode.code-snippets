@@ -22,8 +22,9 @@
 		"body": [
 			"#include <bits/stdc++.h>",
 			"using namespace std;",
-			"#define IOS ios::sync_with_stdio(0);cout.tie(0);",
+			"#define IOS ios::sync_with_stdio(0);cout.tie(0);cin.tie(0);",
 			"#define int long long",
+			"#define endl '\\n'",
 			"typedef long long ll;",
 			"typedef pair<int,int> P;",
 			"const int N=1e6+7;",

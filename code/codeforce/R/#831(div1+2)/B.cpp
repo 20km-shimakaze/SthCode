@@ -11,20 +11,28 @@ const int mod=998244353;
 void solve()
 {
 	int n;
-	string s;
-	cin>>n>>s;
-	int a=0,b=0;
-	for(char c:s){
-		if(c=='0')a++;
-		else b++;
+	cin>>n;
+	vector<P>v(n);
+	for(int i=0;i<n;i++){
+		cin>>v[i].first>>v[i].second;
+		if(v[i].first<v[i].second)swap(v[i].first,v[i].second);
 	}
-	for(int i=(1<<b);i<=(1<<n)-(1<<a)+1;i++)cout<<i<<" ";cout<<endl;
+	sort(v.begin(),v.end());
+	int ans=0;
+	ans+=v[0].first;
+	ans+=v.back().first;
+	ans+=2*v[0].second;
+	for(int i=1;i<n;i++){
+		ans+=2*v[i].second;
+		ans+=v[i].first-v[i-1].first;
+	}
+	cout<<ans<<endl;
 }
 signed main()
 {
 	//IOS
 	int __=1;
-	//cin >> __;
+	cin >> __;
 	while (__--)
 		solve();
 }

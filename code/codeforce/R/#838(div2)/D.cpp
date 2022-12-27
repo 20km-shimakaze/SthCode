@@ -8,21 +8,34 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
-void solve()
+int query(int a,int b)
 {
+	cout<<"? "<<a<<" "<<b<<endl;
+	int t;
+	cin>>t;
+	return t;
+}
+void solve()
+{	
 	int n;
 	cin>>n;
-	int sum=0;
-	sum=(1+n/2)*(n/2)/2*2+(n%2?(n+1)/2:0);
-	// cout<<sum<<endl;
-	int l=0,r=1e9;
-	int ans=0;
-	while(l<=r){
-		int mid=(l+r)/2;
-		if(mid*mid<=sum)ans=mid,l=mid+1;
-		else r=mid-1;
+	int x=1,y=2;
+	int g=query(x,y);
+	for(int i=3;i<=n;i++){
+		int xx=query(x,i);
+		int yy=query(y,i);
+		if(xx==max({xx,yy,g})){
+			y=i;
+			g=xx;
+		}
+		else if(yy==max({xx,yy,g})){
+			x=i;
+			g=yy;
+		}
 	}
-	cout<<ans<<endl;
+	cout<<"! "<<x<<" "<<y<<endl;
+	int res;
+	cin>>res;
 }
 signed main()
 {

@@ -11,20 +11,33 @@ const int mod=998244353;
 void solve()
 {
 	int n;
-	string s;
-	cin>>n>>s;
-	int a=0,b=0;
-	for(char c:s){
-		if(c=='0')a++;
-		else b++;
+	cin>>n;
+	vector<int>a(n+1),b(n+1);
+	for(int i=2;i<=n;i+=2){
+		cin>>a[i];
+		b[a[i]]=i;
 	}
-	for(int i=(1<<b);i<=(1<<n)-(1<<a)+1;i++)cout<<i<<" ";cout<<endl;
+	priority_queue<int>q;
+	for(int i=n;i>=1;i--){
+		if(!b[i]){
+			if(q.size()==0){
+				cout<<-1<<endl;
+				return;
+			}
+			else{
+				a[q.top()-1]=i;
+				q.pop();
+			}
+		}
+		else q.push(b[i]);
+	}
+	for(int i=1;i<=n;i++)cout<<a[i]<<" ";cout<<endl;
 }
 signed main()
 {
 	//IOS
 	int __=1;
-	//cin >> __;
+	cin >> __;
 	while (__--)
 		solve();
 }

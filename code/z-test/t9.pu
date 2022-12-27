@@ -1,0 +1,8 @@
+@startuml test
+
+class 人
+{
+  
+}
+
+@enduml

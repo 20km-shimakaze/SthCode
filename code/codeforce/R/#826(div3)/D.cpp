@@ -8,19 +8,30 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
+int a[N],n;
+int ans=0;
+void dfs(int l,int r)
+{
+	if(l==r)return;
+	int mid=(l+r)/2;
+	int len=(r-l+1)/2;
+	dfs(l,mid),dfs(mid+1,r);
+	if(a[l]>a[r]){
+		ans++;
+		for(int i=l;i<=mid;i++)swap(a[i],a[i+len]);
+	}
+}
 void solve()
 {
-	int n;
 	cin>>n;
-	int sum=0;
-	sum=(1+n/2)*(n/2)/2*2+(n%2?(n+1)/2:0);
-	// cout<<sum<<endl;
-	int l=0,r=1e9;
-	int ans=0;
-	while(l<=r){
-		int mid=(l+r)/2;
-		if(mid*mid<=sum)ans=mid,l=mid+1;
-		else r=mid-1;
+	ans=0;
+	for(int i=1;i<=n;i++)cin>>a[i];
+	dfs(1,n);
+	for(int i=1;i<=n;i++){
+		if(a[i]!=i){
+			cout<<-1<<endl;
+			return;
+		}
 	}
 	cout<<ans<<endl;
 }

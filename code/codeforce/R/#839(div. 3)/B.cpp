@@ -8,13 +8,24 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
-void solve() {
-  int n, k;
-  cin >> n >> k;
-  vector<int> a(n);
-  for(int &i:a)cin>>i;
-
-  cout << (count(a.begin(), a.end(), 1) ? "Yes" : "No") << "\n";
+int a[2][2];
+void fun()
+{
+	int t=a[0][0];
+	a[0][0]=a[1][0];
+	a[1][0]=a[1][1];
+	a[1][1]=a[0][1];
+	a[0][1]=t;
+}
+void solve()
+{
+	cin>>a[0][0]>>a[0][1]>>a[1][0]>>a[1][1];
+	int fl=0;
+	for(int i=1;i<=4;i++){
+		fun();
+		if(a[0][0]<a[0][1]&&a[1][0]<a[1][1]&&a[0][0]<a[1][0]&&a[0][1]<a[1][1])fl=1;
+	}
+	cout<<(fl?"YES":"NO")<<endl;
 }
 signed main()
 {

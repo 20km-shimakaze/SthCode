@@ -8,17 +8,28 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
+int vis[30];
 void solve()
 {
-	int n;
 	string s;
-	cin>>n>>s;
-	int a=0,b=0;
+	stack<char>st;
+	cin>>s;
 	for(char c:s){
-		if(c=='0')a++;
-		else b++;
+		// cout<<c<<endl;
+		if(c>='a'&&c<='z'){
+			if(vis[c-'a']){
+				cout<<"No"<<endl;
+				return;
+			}
+			st.push(c),vis[c-'a']++;
+		}
+		if(c=='(')st.push(c);
+		if(c==')'){
+			while(st.size()&&st.top()!='(')vis[st.top()-'a']--,st.pop();
+			st.pop();
+		}
 	}
-	for(int i=(1<<b);i<=(1<<n)-(1<<a)+1;i++)cout<<i<<" ";cout<<endl;
+	cout<<"Yes"<<endl;
 }
 signed main()
 {

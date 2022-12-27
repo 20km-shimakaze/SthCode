@@ -87,5 +87,6 @@
       "queue": "cpp",
       "stack": "cpp"
   },
-  "C_Cpp.errorSquiggles": "Enabled"
+  "C_Cpp.errorSquiggles": "Enabled",
+  "workbench.colorTheme": "Default Dark+"
 }
