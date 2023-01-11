@@ -10,13 +10,15 @@ const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-	cout<<(1ll<<60)<<endl;
+	int n;
+	cin>>n;
+	cout<<n/3-2<<endl;
 }
 signed main()
 {
 	//IOS
 	int __=1;
-	//cin >> __;
+	cin >> __;
 	while (__--)
 		solve();
 }

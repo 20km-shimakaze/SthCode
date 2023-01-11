@@ -8,9 +8,13 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
+string s[N];
+int n;
 void solve()
 {
-	cout<<(1ll<<60)<<endl;
+	cin>>n;
+	for(int i=1;i<=n;i++)cin>>s[i];
+	for(int i=n;i>=1;i--)cout<<s[i]<<endl;
 }
 signed main()
 {

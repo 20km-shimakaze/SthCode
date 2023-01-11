@@ -4,10 +4,10 @@ typedef long long ll;
 typedef pair<int,int> P;
 #define int long long
 string t,s;
-int p[31000007];//¿ª·¶Î§Á½±¶
-void init()//Ô¤´¦Àí,°ÑÆæÅ¼Í³Ò»ÆğÀ´
+int p[31000007];//å¼€èŒƒå›´ä¸¤å€
+void init()//é¢„å¤„ç†,æŠŠå¥‡å¶ç»Ÿä¸€èµ·æ¥
 {
-    s+='$';//·ÀÒç³ö
+    s+='$';//é˜²æº¢å‡º
     s+='#';
     for(int i=0;i<t.size();i++){
         s+=t[i];
@@ -19,10 +19,10 @@ int manachar(int len)
     int mx=0,id=0,sum=0;
     p[0]=0;
     for(int i=1;i<len;i++){
-        if(i<mx)p[i]=min(mx-i,p[2*id-i]);//p[j]²»ÔÚmx¶Ô³ÆÎ»ÖÃÉÏ
+        if(i<mx)p[i]=min(mx-i,p[2*id-i]);//p[j]ä¸åœ¨mxå¯¹ç§°ä½ç½®ä¸Š
         else p[i]=1;
-        while(s[i+p[i]]==s[i-p[i]])p[i]++;//p[j]ÔÚmx¶Ô³ÆÉÏ£¬³¢ÊÔÀ©Õ¹
-        if(i+p[i]>mx)mx=p[i]+i,id=i;//¸üĞÂ×îÓÒ±ß½çºÍ¶Ô³Æµã
+        while(s[i+p[i]]==s[i-p[i]])p[i]++;//p[j]åœ¨mxå¯¹ç§°ä¸Šï¼Œå°è¯•æ‰©å±•
+        if(i+p[i]>mx)mx=p[i]+i,id=i;//æ›´æ–°æœ€å³è¾¹ç•Œå’Œå¯¹ç§°ç‚¹
         sum=max(sum,p[i]);
     }
     return sum-1;

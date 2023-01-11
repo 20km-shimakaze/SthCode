@@ -7,12 +7,6 @@ int mn[maxn];//储存答案
 int p[maxn];//原数组 
 int n,m;
 
-int read(){
-    int num=0;char ch;
-    while((ch=getchar())<'0'||'9'<ch);
-    do num=num*10+ch-48,ch=getchar();while('0'<=ch&&ch<='9');
-    return num;
-}
 void st()
 {
 	for(int i=1;i<=n;i++)//距离为0初始化 
@@ -35,6 +29,12 @@ void st()
 	}
 }
 
+int query(int l,int r)
+{
+	int k=log2(r-l+1);
+	return max(f[l][k],f[r-(1<<k)+1][k]);
+}
+
 int rst(int L,int R)//答案数组查寻 不推荐 
 {
 	if(L>R)swap(L,R);
@@ -42,11 +42,6 @@ int rst(int L,int R)//答案数组查寻 不推荐
 	return max(f[L][k],f[R-(1<<k)+1][k]);
 }
 
-int query(int l,int r)
-{
-	int k=log2(r-l+1);
-	return max(f[l][k],f[r-(1<<k)+1][k]);
-}
 int main()
 {
 	IOS

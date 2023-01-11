@@ -10,13 +10,31 @@ const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
 void solve()
 {
-	cout<<(1ll<<60)<<endl;
+	int n;
+	cin>>n;
+	int t=3e6;
+	int maxx=min(t,n);
+	for(int i=2;i<=maxx;i++){
+		if(n%(i*i)==0){
+			cout<<i<<" "<<n/i/i<<endl;
+			return;
+		}
+	}
+	for(int i=2;i<=maxx;i++){
+		if(n%i)continue;
+		int t=n/i;
+		int sq=sqrt(t);
+		if(sq*sq==t){
+			cout<<sq<<" "<<i<<endl;
+			return;
+		}
+	}
 }
 signed main()
 {
 	//IOS
 	int __=1;
-	//cin >> __;
+	cin >> __;
 	while (__--)
 		solve();
 }

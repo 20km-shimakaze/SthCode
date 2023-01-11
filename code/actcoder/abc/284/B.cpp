@@ -8,15 +8,24 @@ typedef pair<int,int> P;
 const int N=1e6+7;
 const int INF=0x3f3f3f3f3f3f3f3f;
 const int mod=998244353;
+int n;
+int a[N];
 void solve()
 {
-	cout<<(1ll<<60)<<endl;
+	cin>>n;
+	int ans=0;
+	for(int i=1;i<=n;i++){
+		int x;
+		cin>>x;
+		if(x%2)ans++;
+	}
+	cout<<ans<<endl;
 }
 signed main()
 {
 	//IOS
 	int __=1;
-	//cin >> __;
+	cin >> __;
 	while (__--)
 		solve();
 }

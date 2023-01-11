@@ -5,8 +5,8 @@ typedef pair<int,int> P;
 #define int long long
 const int maxn=1e6+7;
 /*
-ÖÜÆÚ¶¨Àí£ºÈôp,qÎªsµÄÖÜÆÚ£¬Ôògcd(p,q)Ò²ÊÇsÖÜÆÚ
-Ò»¸ö´®borderÊıÁ¿ÊÇon¸öµ«ËûÃÇ×é³ÉÁËlogn¸öµÈ²îÊıÁĞ
+å‘¨æœŸå®šç†ï¼šè‹¥p,qä¸ºsçš„å‘¨æœŸï¼Œåˆ™gcd(p,q)ä¹Ÿæ˜¯så‘¨æœŸ
+ä¸€ä¸ªä¸²borderæ•°é‡æ˜¯onä¸ªä½†ä»–ä»¬ç»„æˆäº†lognä¸ªç­‰å·®æ•°åˆ—
 */
 struct KMP
 {
@@ -17,9 +17,9 @@ struct KMP
         ss=" "+ss;
         len=ss.size();
         for(int i=2;i<len;i++){
-            nex[i]=nex[i-1];//¼Ì³ĞÇ°Ò»¸öborder
-            while(nex[i]&&ss[i]!=ss[nex[i]+1])nex[i]=nex[nex[i]];//Ìø×ª
-            nex[i]+=(ss[i]==ss[nex[i]+1]);//ĞŞÕıwhileÍË³öµÄÔ­Òò
+            nex[i]=nex[i-1];//ç»§æ‰¿å‰ä¸€ä¸ªborder
+            while(nex[i]&&ss[i]!=ss[nex[i]+1])nex[i]=nex[nex[i]];//è·³è½¬
+            nex[i]+=(ss[i]==ss[nex[i]+1]);//ä¿®æ­£whileé€€å‡ºçš„åŸå› 
         }
     }
     void getNext(string ss)

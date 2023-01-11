@@ -1,6 +1,6 @@
 /*
-ÀûÓÃ²¢²é·´¼¯£¬ÏÈ°ÑÇéÂÂÖ®¼ä·Öµ½Á½±ß£¬È»ºó´Ó1~2n³¢ÊÔÒ»¸ö¸ö°²·ÅÎ»ÖÃ
-ps£ºÅ£¿ÍÃ»ÓÐÔì-1Êý¾Ý£¡£¡£¡
+åˆ©ç”¨å¹¶æŸ¥åé›†ï¼Œå…ˆæŠŠæƒ…ä¾£ä¹‹é—´åˆ†åˆ°ä¸¤è¾¹ï¼Œç„¶åŽä»Ž1~2nå°è¯•ä¸€ä¸ªä¸ªå®‰æ”¾ä½ç½®
+psï¼šç‰›å®¢æ²¡æœ‰é€ -1æ•°æ®ï¼ï¼ï¼
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -37,12 +37,12 @@ void solve()
 		lian(y,x+n*2);
 	}
 	an[1]=1;
-	if(find(1)==find(1+2*n)){//Ã¬¶Ü
+	if(find(1)==find(1+2*n)){//çŸ›ç›¾
 		cout<<-1<<endl;
 		return;
 	}
 	for(int i=2;i<=n*2;i++){
-		if(find(i)==find(i+2*n)){//Ã¬¶Ü
+		if(find(i)==find(i+2*n)){//çŸ›ç›¾
 			cout<<-1<<endl;
 			return;
 		}
